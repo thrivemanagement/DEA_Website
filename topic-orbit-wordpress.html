@@ -137,7 +137,7 @@
   all: unset;
   --c: oklch(var(--to-node-l) var(--to-node-c) var(--nh));
   position: absolute; left: var(--x); top: var(--y);
-  translate: calc(-50% + var(--mx, 0px)) calc(-50% + var(--my, 0px));
+  translate: -50% -50%;
   display: block;
   width: clamp(48px, 13cqi, 76px); aspect-ratio: 1;
   color: var(--to-fg); font-family: var(--to-body); cursor: pointer;
@@ -176,9 +176,9 @@
 .topic-orbit .to-node:hover .to-label, .topic-orbit .to-node.active .to-label {
   background: oklch(var(--to-tint-l) .04 var(--nh)); color: var(--to-fg); transform: translateY(2px);
 }
-.topic-orbit .to-node.pinned .to-label { background: var(--c); color: #fff; }
+.topic-orbit .to-node.active .to-label { background: var(--c); color: #fff; }
 .topic-orbit .to-node:focus-visible .to-dot { outline: 3px solid var(--to-fg); outline-offset: 6px; }
-.topic-orbit .is-active .to-node:not(.active) { opacity: .62; }
+.topic-orbit .is-active .to-node:not(.active):not(:hover) { opacity: .75; }
 
 /* ---------- Detail panel ---------- */
 .topic-orbit .to-detail {
@@ -188,7 +188,12 @@
 }
 .topic-orbit .to-detail.open { grid-template-rows: 1fr; }
 .topic-orbit .to-clip { overflow: hidden; min-height: 0; padding: 0 28px 36px; margin: 0 -28px -36px; }
+.topic-orbit .to-stack { display: grid; }
 .topic-orbit .to-card {
+  --to-accent: oklch(var(--to-node-l) var(--to-node-c) var(--h));
+  grid-area: 1 / 1;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .3s, transform .4s cubic-bezier(.2,.7,.2,1), visibility 0s .3s;
   margin: .25rem 0 0;
   background: var(--to-surface);
   border: 1px solid var(--to-line);
@@ -198,11 +203,19 @@
   display: grid; gap: 1rem;
   position: relative; overflow: hidden;
 }
+.topic-orbit .to-card.show { opacity: 1; visibility: visible; transform: none; transition: opacity .3s, transform .4s cubic-bezier(.2,.7,.2,1), visibility 0s; }
+.topic-orbit .to-close {
+  all: unset; position: absolute; top: .9rem; right: .9rem; width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer; color: var(--to-muted); font: 400 1.5rem/1 var(--to-body);
+  transition: background .2s, color .2s;
+}
+.topic-orbit .to-close:hover { background: oklch(var(--to-tint-l) .04 var(--h)); color: var(--to-fg); }
+.topic-orbit .to-close:focus-visible { outline: 3px solid var(--to-accent); }
 .topic-orbit .to-card::before {
   content: ""; position: absolute; inset: 0 0 auto; height: 5px;
   background: linear-gradient(90deg, var(--to-accent), oklch(var(--to-node-l) var(--to-node-c) calc(var(--h) + 40)));
 }
-.topic-orbit .to-top { display: flex; gap: 1rem; align-items: center; min-width: 0; }
+.topic-orbit .to-top { display: flex; gap: 1rem; align-items: center; min-width: 0; padding-right: 2.5rem; }
 .topic-orbit .to-icon {
   flex: none; width: 52px; height: 52px; border-radius: 50%;
   display: grid; place-items: center; background: var(--to-accent); color: #fff;
@@ -237,16 +250,10 @@
 .topic-orbit .to-btn:hover { border-color: var(--to-accent); color: var(--to-fg); transform: translateY(-2px); text-decoration: none; }
 .topic-orbit .to-btn:focus-visible { outline: 3px solid var(--to-accent); outline-offset: 2px; }
 .topic-orbit .to-btn--fill, .topic-orbit .to-btn--fill:hover { background: var(--to-accent); border-color: var(--to-accent); color: #fff; }
-.topic-orbit .to-anim > * { animation: to-rise .45s cubic-bezier(.2,.7,.2,1) backwards; }
-.topic-orbit .to-anim > *:nth-child(2) { animation-delay: .05s; }
-.topic-orbit .to-anim > *:nth-child(3) { animation-delay: .1s; }
-.topic-orbit .to-anim > *:nth-child(4) { animation-delay: .15s; }
-.topic-orbit .to-prompt { margin: 0; color: var(--to-muted); font-size: .9rem; text-align: center; }
 
 @keyframes to-spin { to { transform: rotate(360deg); } }
 @keyframes to-ripple { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.7); opacity: 0; } }
 @keyframes to-pop { from { opacity: 0; scale: .4; } }
-@keyframes to-rise { from { opacity: 0; transform: translateY(10px); } }
 
 @container (max-width: 480px) {
   .topic-orbit .to-core { width: 33%; }
@@ -280,10 +287,8 @@
       </div>
     </div>
 
-    <p class="to-prompt" id="to-prompt">Tip: click a topic to keep it open.</p>
-
     <div class="to-detail" id="to-detail" aria-live="polite">
-      <div class="to-clip"><article class="to-card" id="to-card"></article></div>
+      <div class="to-clip"><div class="to-stack" id="to-stack"></div></div>
     </div>
   </div>
 </section>
@@ -361,8 +366,7 @@
     var core = document.getElementById("to-core");
     var beamsG = document.getElementById("to-beams");
     var detail = document.getElementById("to-detail");
-    var card = document.getElementById("to-card");
-    var prompt = document.getElementById("to-prompt");
+    var stack = document.getElementById("to-stack");
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var canHover = window.matchMedia("(hover: hover)").matches;
     var NS = "http://www.w3.org/2000/svg";
@@ -411,45 +415,48 @@
       beams.push({ line: line, spark: spark, sx: sx, sy: sy, ex: ex, ey: ey });
     });
 
-    var pinned = null, hovered = null, shown = null, closeTimer = null, sparkRaf = null;
+    // Build every description card up front and stack them in one grid cell,
+    // so the panel keeps a steady height when switching topics.
+    var cards = TOPICS.map(function (t, i) {
+      var c = document.createElement("article");
+      c.className = "to-card";
+      c.style.setProperty("--h", t.hue);
+      c.setAttribute("aria-label", t.title);
+      c.innerHTML =
+        '<button type="button" class="to-close" data-close aria-label="Close">&times;</button>' +
+        '<div class="to-top"><span class="to-icon">' + svgIcon(t.icon) + "</span>" +
+        '<div><div class="to-kicker">Topic ' + (i + 1) + " of " + TOPICS.length + "</div><h3>" + esc(t.title) + "</h3></div></div>" +
+        '<p class="to-body">' + esc(t.body) + "</p>" +
+        '<ul class="to-points">' + t.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul>" +
+        '<div class="to-foot">' +
+          (t.link && t.link.href ? '<a class="to-btn to-btn--fill" href="' + esc(t.link.href) + '">' + esc(t.link.text) + "</a>" : "<span></span>") +
+          '<div class="to-nav"><button type="button" class="to-btn" data-step="-1" aria-label="Previous topic">&larr; Prev</button>' +
+          '<button type="button" class="to-btn" data-step="1" aria-label="Next topic">Next &rarr;</button></div>' +
+        "</div>";
+      stack.appendChild(c);
+      return c;
+    });
 
-    function current() { return hovered !== null ? hovered : pinned; }
+    var active = null, hoverTimer = null, sparkRaf = null;
 
-    function render() {
-      var idx = current();
+    function select(idx) {
+      if (idx === active) return;
+      active = idx;
       nodes.forEach(function (n, i) {
         n.classList.toggle("active", i === idx);
-        n.classList.toggle("pinned", i === pinned);
         n.setAttribute("aria-expanded", String(i === idx));
         beams[i].line.classList.toggle("on", i === idx);
         if (i !== idx) beams[i].spark.style.opacity = "0";
+        cards[i].classList.toggle("show", i === idx);
       });
       orbit.classList.toggle("is-active", idx !== null);
       detail.classList.toggle("open", idx !== null);
-      prompt.hidden = pinned !== null;
 
       if (idx === null) { cancelAnimationFrame(sparkRaf); return; }
       var t = TOPICS[idx];
       root.style.setProperty("--h", t.hue);
       document.getElementById("to-core-icon").innerHTML = svgIcon(t.icon);
       document.getElementById("to-core-title").textContent = t.title;
-
-      if (shown !== idx) {
-        shown = idx;
-        card.classList.remove("to-anim");
-        card.innerHTML =
-          '<div class="to-top"><span class="to-icon">' + svgIcon(t.icon) + "</span>" +
-          '<div><div class="to-kicker">Topic ' + (idx + 1) + " of " + TOPICS.length + "</div><h3>" + esc(t.title) + "</h3></div></div>" +
-          '<p class="to-body">' + esc(t.body) + "</p>" +
-          '<ul class="to-points">' + t.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul>" +
-          '<div class="to-foot">' +
-            (t.link && t.link.href ? '<a class="to-btn to-btn--fill" href="' + esc(t.link.href) + '">' + esc(t.link.text) + "</a>" : "<span></span>") +
-            '<div class="to-nav"><button type="button" class="to-btn" data-step="-1" aria-label="Previous topic">&larr; Prev</button>' +
-            '<button type="button" class="to-btn" data-step="1" aria-label="Next topic">Next &rarr;</button></div>' +
-          "</div>";
-        void card.offsetWidth;
-        card.classList.add("to-anim");
-      }
       animateSpark(idx);
     }
 
@@ -469,67 +476,48 @@
       })(t0);
     }
 
-    card.addEventListener("click", function (e) {
+    stack.addEventListener("click", function (e) {
+      if (e.target.closest("[data-close]")) { select(null); return; }
       var s = e.target.closest("[data-step]");
-      if (!s) return;
-      var from = current() !== null ? current() : 0;
-      pinned = (from + Number(s.dataset.step) + TOPICS.length) % TOPICS.length;
-      hovered = null;
-      render();
+      if (s) select((active + Number(s.dataset.step) + TOPICS.length) % TOPICS.length);
     });
 
     nodes.forEach(function (n, i) {
+      // Hover opens a topic after a short pause, so sweeping the mouse
+      // across other topics on the way to the panel doesn't switch it.
+      // The topic stays open until another one is chosen.
       n.addEventListener("pointerenter", function (e) {
         if (e.pointerType !== "mouse") return;
-        clearTimeout(closeTimer);
-        hovered = i; render();
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(function () { select(i); }, active === null ? 0 : 140);
       });
+      n.addEventListener("pointerleave", function () { clearTimeout(hoverTimer); });
       n.addEventListener("click", function () {
-        // Click pins a topic open; clicking the pinned topic again closes it.
-        pinned = pinned === i ? null : i;
-        hovered = null;
-        render();
+        clearTimeout(hoverTimer);
+        // On touch screens, tapping the open topic again closes it.
+        select(active === i && !canHover ? null : i);
       });
+      n.addEventListener("focus", function () { if (n.matches(":focus-visible")) select(i); });
       n.addEventListener("keydown", function (e) {
         var k = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
         if (k) { e.preventDefault(); nodes[(i + k + nodes.length) % nodes.length].focus(); }
       });
     });
 
-    // Leaving the ring closes a hover preview after a short pause.
-    orbit.addEventListener("pointerleave", function (e) {
-      core.style.setProperty("--rx", "0deg"); core.style.setProperty("--ry", "0deg");
-      nodes.forEach(function (n) { n.style.removeProperty("--mx"); n.style.removeProperty("--my"); });
-      if (e.pointerType !== "mouse") return;
-      closeTimer = setTimeout(function () { hovered = null; render(); }, 300);
-    });
+    // Tilt the center image toward the cursor.
     orbit.addEventListener("pointermove", function (e) {
       if (e.pointerType !== "mouse" || reduceMotion) return;
       var r = orbit.getBoundingClientRect();
-      var px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
-      // Tilt the center image toward the cursor.
-      core.style.setProperty("--rx", (px * 14).toFixed(2) + "deg");
-      core.style.setProperty("--ry", (-py * 14).toFixed(2) + "deg");
-      // Nodes lean slightly toward the cursor when it is close.
-      nodes.forEach(function (n) {
-        var b = n.firstElementChild.getBoundingClientRect();
-        var dx = e.clientX - (b.left + b.width / 2), dy = e.clientY - (b.top + b.height / 2);
-        var d = Math.hypot(dx, dy), reach = b.width * 1.4;
-        var f = d < reach ? (1 - d / reach) * .28 : 0;
-        n.style.setProperty("--mx", (dx * f).toFixed(1) + "px");
-        n.style.setProperty("--my", (dy * f).toFixed(1) + "px");
-      });
+      core.style.setProperty("--rx", (((e.clientX - r.left) / r.width - .5) * 12).toFixed(2) + "deg");
+      core.style.setProperty("--ry", (-((e.clientY - r.top) / r.height - .5) * 12).toFixed(2) + "deg");
     });
-    // Moving the mouse from the ring into the panel keeps that topic open.
-    detail.addEventListener("pointerenter", function () {
-      clearTimeout(closeTimer);
-      if (hovered !== null) { pinned = hovered; hovered = null; render(); }
+    orbit.addEventListener("pointerleave", function () {
+      core.style.setProperty("--rx", "0deg"); core.style.setProperty("--ry", "0deg");
     });
     root.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && current() !== null) { pinned = hovered = null; render(); }
+      if (e.key === "Escape") select(null);
     });
 
-    render();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
