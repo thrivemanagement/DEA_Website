@@ -52,6 +52,18 @@
   text-decoration: none;
 }
 
+/* Background photos fill their section (the rule above would otherwise
+   set their height to auto and show only the top of the photo). */
+.dea-home .dea-hero-bg,
+.dea-home .dea-bottom-cta-bg {
+  height: 100%;
+}
+
+/* Keep the top of a photo in view when a card crops it (e.g. faces). */
+.dea-home .dea-img-top {
+  object-position: center top;
+}
+
 .dea-wrap {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
@@ -186,7 +198,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center bottom;
+  object-position: center 72%;
   display: block;
 }
 
@@ -1837,6 +1849,7 @@
         <div class="dea-program-image">
 
           <img
+            class="dea-img-top"
             src="https://drugeducators.org/wp-content/uploads/2026/10/drug-educator-certification-hero-darren-tessitore.jpg"
             alt="Drug Educator Training instructor presenting to educators"
             loading="lazy"
