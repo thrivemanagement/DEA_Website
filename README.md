@@ -18,3 +18,9 @@ Notes:
 Everything editable is in the `EDIT HERE` section of the `<script>` at the bottom:
 - `AREAS`: for each of the 8 areas, the pill label (`name`), second line / card title (`sub`), description (`text`), colors, and an optional `link` button, e.g. `link: { text: "Learn more", href: "/young-people" }`.
 - `CENTER_IMAGE`: optional URL of an image to use in the center instead of the built-in ONE Platform logo and globe.
+
+## Full ONE Platform page for Elementor (`one-platform-page-elementor.html`)
+
+The complete https://drugeducators.org/one-platform/ page with the interactive ecosystem diagram in the "Bringing It All Together" section, replacing the static ecosystem image and the 8 cards below it. Everything else on the page is unchanged.
+
+To install: edit the page with Elementor, open the existing HTML widget, select all of its code, and replace it with the full contents of this file. Then click **Update**.
