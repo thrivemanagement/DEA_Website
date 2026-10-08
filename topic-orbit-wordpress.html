@@ -1,0 +1,538 @@
+<!--
+  TOPIC ORBIT — paste this whole file into a WordPress "Custom HTML" block.
+  One center image, 8 topics in a circle (4 per side). Hover or click a topic
+  to open its description below.
+
+  To customize, scroll to "EDIT HERE" in the <script> at the bottom:
+    - CENTER_IMAGE: URL of your center photo (copy it from the Media Library)
+    - TOPICS: titles, descriptions, bullet points, links, colors
+  To change the heading text, edit the <header> just below the styles.
+  To change the overall background, edit --to-bg in the first CSS rule.
+  For a dark section, add the class "to-dark" next to "topic-orbit" on the <section>.
+-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: one image at the center, 8 topics on a ring (4 per side), detail panel below. All rules are scoped to .topic-orbit. */
+.topic-orbit {
+  --to-bg: #f2f5f7;
+  --to-surface: #ffffff;
+  --to-fg: #0f1d2b;
+  --to-muted: #566577;
+  --to-line: #d5dde4;
+  --to-ring: #b9c6d1;
+  --to-node-l: 0.6;
+  --to-node-c: 0.15;
+  --to-tint-l: 0.95;
+  --to-shadow: 0 18px 40px -18px rgb(15 29 43 / 0.35);
+  --to-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --to-body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --h: 205; /* hue of the active topic, set by the script */
+  --to-accent: oklch(var(--to-node-l) var(--to-node-c) var(--h));
+}
+.topic-orbit.to-dark {
+  --to-bg: #0b141d; --to-surface: #121e2a; --to-fg: #e8eef3; --to-muted: #93a3b3;
+  --to-line: #22313f; --to-ring: #2c3d4d; --to-node-l: 0.7; --to-node-c: 0.14; --to-tint-l: 0.27;
+  --to-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+.topic-orbit, .topic-orbit *, .topic-orbit *::before, .topic-orbit *::after { box-sizing: border-box; }
+.topic-orbit [hidden] { display: none !important; }
+.topic-orbit {
+  background: var(--to-bg);
+  color: var(--to-fg);
+  font: 400 1rem/1.6 var(--to-body);
+  -webkit-font-smoothing: antialiased;
+  padding: clamp(2rem, 5vw, 4rem) 16px;
+  margin: 0;
+  overflow: hidden;
+}
+.topic-orbit .to-wrap {
+  max-width: 980px; margin-inline: auto;
+  display: grid; gap: clamp(1.25rem, 3vw, 2rem); justify-items: center;
+}
+
+/* ---------- Heading ---------- */
+.topic-orbit .to-head { text-align: center; max-width: 36rem; display: grid; gap: .4rem; }
+.topic-orbit .to-eyebrow {
+  font: 600 .75rem/1 var(--to-body); letter-spacing: .14em; text-transform: uppercase; color: var(--to-muted);
+}
+.topic-orbit .to-head h2 {
+  margin: 0; padding: 0; color: var(--to-fg); text-transform: none;
+  font: 800 clamp(1.9rem, 5vw, 3rem)/1.05 var(--to-display);
+  letter-spacing: -.02em; text-wrap: balance;
+}
+.topic-orbit .to-head p { margin: 0; color: var(--to-muted); }
+
+/* ---------- The ring ---------- */
+.topic-orbit .to-orbit {
+  position: relative;
+  width: min(100%, 640px);
+  aspect-ratio: 1;
+  container-type: inline-size;
+}
+.topic-orbit .to-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.topic-orbit .to-track { fill: none; stroke: var(--to-ring); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.topic-orbit .to-track--dash { stroke-dasharray: 2 6; transform-origin: 50px 50px; animation: to-spin 80s linear infinite; }
+.topic-orbit .to-track--glow {
+  fill: none; stroke: var(--to-accent); stroke-width: .5;
+  stroke-dasharray: 14 224.8; stroke-linecap: round; opacity: 0;
+  transform-origin: 50px 50px; transition: opacity .3s;
+}
+.topic-orbit .is-active .to-track--glow { opacity: .9; animation: to-spin 7s linear infinite; }
+
+.topic-orbit .to-beam {
+  stroke: var(--to-accent); stroke-width: .4; stroke-linecap: round;
+  stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0;
+  transition: stroke-dashoffset .45s cubic-bezier(.2,.7,.2,1), opacity .2s;
+}
+.topic-orbit .to-beam.on { stroke-dashoffset: 0; opacity: 1; }
+.topic-orbit .to-spark { fill: var(--to-accent); opacity: 0; }
+
+/* Center image */
+.topic-orbit .to-core {
+  position: absolute; left: 50%; top: 50%;
+  width: 40%; aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  transform: perspective(700px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg));
+  transition: transform .25s ease-out, box-shadow .4s;
+  box-shadow: var(--to-shadow), 0 0 0 6px var(--to-surface), 0 0 0 7px var(--to-line);
+}
+.topic-orbit .is-active .to-core {
+  box-shadow: var(--to-shadow), 0 0 0 6px var(--to-surface), 0 0 0 8px var(--to-accent), 0 0 60px -6px var(--to-accent);
+}
+.topic-orbit .to-core-media {
+  position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 25%, oklch(0.85 0.09 190) 0 12%, transparent 45%),
+    radial-gradient(circle at 75% 80%, oklch(0.55 0.16 250) 0 10%, transparent 50%),
+    conic-gradient(from 200deg, oklch(0.5 0.12 220), oklch(0.62 0.13 175), oklch(0.45 0.12 245), oklch(0.5 0.12 220));
+}
+.topic-orbit .to-core-media img {
+  width: 100%; height: 100%; max-width: none; margin: 0; border: 0; border-radius: 0; object-fit: cover; display: block;
+  transition: transform .6s cubic-bezier(.2,.7,.2,1), filter .4s;
+}
+.topic-orbit .is-active .to-core-media img { transform: scale(1.06); filter: saturate(.8) brightness(.7); }
+.topic-orbit .to-core-default, .topic-orbit .to-core-topic {
+  position: absolute; inset: 0; border-radius: 50%;
+  display: grid; place-content: center; text-align: center; gap: .15em;
+  padding: 14%; color: #fff;
+  transition: opacity .35s, transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.topic-orbit .to-core-default b { font: 800 clamp(.95rem, 5.2cqi, 1.9rem)/1.05 var(--to-display); letter-spacing: -.01em; text-wrap: balance; }
+.topic-orbit .to-core-default span { font: 500 clamp(.6rem, 2.2cqi, .8rem)/1.3 var(--to-body); opacity: .85; letter-spacing: .06em; text-transform: uppercase; }
+.topic-orbit .has-image .to-core-default { display: none; }
+.topic-orbit .to-core-topic {
+  background: radial-gradient(circle, oklch(0.35 0.1 var(--h) / .55), oklch(0.3 0.12 var(--h) / .85));
+  opacity: 0; transform: scale(.9);
+}
+.topic-orbit .to-core-topic svg { width: clamp(28px, 9cqi, 56px); height: auto; justify-self: center; }
+.topic-orbit .to-core-topic b { font: 700 clamp(.85rem, 4cqi, 1.5rem)/1.1 var(--to-display); text-wrap: balance; }
+.topic-orbit .is-active .to-core-topic { opacity: 1; transform: none; }
+.topic-orbit .is-active .to-core-default { opacity: 0; transform: scale(1.08); }
+
+/* Ring nodes (buttons are fully reset so theme button styles don't leak in) */
+.topic-orbit button.to-node {
+  all: unset;
+  --c: oklch(var(--to-node-l) var(--to-node-c) var(--nh));
+  position: absolute; left: var(--x); top: var(--y);
+  translate: calc(-50% + var(--mx, 0px)) calc(-50% + var(--my, 0px));
+  display: block;
+  width: clamp(48px, 13cqi, 76px); aspect-ratio: 1;
+  color: var(--to-fg); font-family: var(--to-body); cursor: pointer;
+  transition: translate .3s cubic-bezier(.2,.7,.2,1), opacity .3s;
+  -webkit-tap-highlight-color: transparent;
+  animation: to-pop .6s cubic-bezier(.2,1.4,.4,1) backwards;
+  animation-delay: calc(var(--i) * 60ms + 150ms);
+}
+.topic-orbit .to-dot {
+  position: relative;
+  width: 100%; height: 100%; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--to-surface); color: var(--c);
+  box-shadow: 0 0 0 1.5px var(--c), var(--to-shadow);
+  transition: transform .35s cubic-bezier(.2,1.5,.4,1), background .25s, color .25s, box-shadow .35s;
+}
+.topic-orbit .to-dot svg { width: 44%; height: auto; transition: transform .45s cubic-bezier(.2,1.5,.4,1); }
+.topic-orbit .to-dot::before, .topic-orbit .to-dot::after {
+  content: ""; position: absolute; inset: -1px; border-radius: 50%;
+  border: 2px solid var(--c); opacity: 0; pointer-events: none;
+}
+.topic-orbit .to-label {
+  position: absolute; left: 50%; top: calc(100% + .45rem); translate: -50% 0;
+  width: max-content; max-width: 9.5em; text-align: center;
+  font: 600 clamp(.7rem, 2.3cqi, .9rem)/1.2 var(--to-body);
+  padding: .25em .6em; border-radius: 99px;
+  transition: background .25s, color .25s, transform .3s cubic-bezier(.2,1.5,.4,1);
+}
+.topic-orbit .to-node:hover .to-dot, .topic-orbit .to-node:focus-visible .to-dot, .topic-orbit .to-node.active .to-dot {
+  background: var(--c); color: #fff; transform: scale(1.14);
+  box-shadow: 0 0 0 4px var(--to-surface), 0 0 0 6px var(--c), 0 12px 34px -6px var(--c);
+}
+.topic-orbit .to-node:hover .to-dot svg, .topic-orbit .to-node.active .to-dot svg { transform: rotate(-12deg) scale(1.08); }
+.topic-orbit .to-node:hover .to-dot::before, .topic-orbit .to-node.active .to-dot::before { animation: to-ripple 1.6s ease-out infinite; }
+.topic-orbit .to-node:hover .to-dot::after, .topic-orbit .to-node.active .to-dot::after { animation: to-ripple 1.6s ease-out .8s infinite; }
+.topic-orbit .to-node:hover .to-label, .topic-orbit .to-node.active .to-label {
+  background: oklch(var(--to-tint-l) .04 var(--nh)); color: var(--to-fg); transform: translateY(2px);
+}
+.topic-orbit .to-node.pinned .to-label { background: var(--c); color: #fff; }
+.topic-orbit .to-node:focus-visible .to-dot { outline: 3px solid var(--to-fg); outline-offset: 6px; }
+.topic-orbit .is-active .to-node:not(.active) { opacity: .62; }
+
+/* ---------- Detail panel ---------- */
+.topic-orbit .to-detail {
+  width: min(100%, 760px);
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .5s cubic-bezier(.2,.7,.2,1);
+}
+.topic-orbit .to-detail.open { grid-template-rows: 1fr; }
+.topic-orbit .to-clip { overflow: hidden; min-height: 0; padding: 0 28px 36px; margin: 0 -28px -36px; }
+.topic-orbit .to-card {
+  margin: .25rem 0 0;
+  background: var(--to-surface);
+  border: 1px solid var(--to-line);
+  border-radius: 20px;
+  box-shadow: var(--to-shadow);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  display: grid; gap: 1rem;
+  position: relative; overflow: hidden;
+}
+.topic-orbit .to-card::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 5px;
+  background: linear-gradient(90deg, var(--to-accent), oklch(var(--to-node-l) var(--to-node-c) calc(var(--h) + 40)));
+}
+.topic-orbit .to-top { display: flex; gap: 1rem; align-items: center; min-width: 0; }
+.topic-orbit .to-icon {
+  flex: none; width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--to-accent); color: #fff;
+}
+.topic-orbit .to-icon svg { width: 26px; height: auto; }
+.topic-orbit .to-kicker { font: 600 .72rem/1 var(--to-body); letter-spacing: .14em; text-transform: uppercase; color: var(--to-muted); }
+.topic-orbit .to-card h3 {
+  margin: .2rem 0 0; padding: 0; color: var(--to-fg); text-transform: none; letter-spacing: -.01em;
+  font: 700 clamp(1.3rem, 3.5vw, 1.75rem)/1.15 var(--to-display); text-wrap: balance;
+}
+.topic-orbit .to-body { margin: 0; max-width: 62ch; color: var(--to-fg); }
+.topic-orbit ul.to-points { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.topic-orbit ul.to-points li {
+  margin: 0; padding: 0; list-style: none; color: var(--to-fg);
+  display: grid; grid-template-columns: 1.4rem 1fr; gap: .5rem; align-items: start; min-width: 0;
+}
+.topic-orbit ul.to-points li::before {
+  content: ""; position: static; width: .6rem; height: .6rem; margin-top: .5em; border-radius: 50%;
+  background: var(--to-accent); box-shadow: 0 0 0 4px oklch(var(--to-tint-l) .05 var(--h));
+}
+.topic-orbit .to-foot { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; justify-content: space-between; padding-top: .25rem; }
+.topic-orbit .to-nav { display: flex; gap: .5rem; }
+.topic-orbit .to-btn {
+  all: unset;
+  display: inline-block; cursor: pointer;
+  font: 600 .9rem/1 var(--to-body); color: var(--to-fg);
+  border: 1.5px solid var(--to-line); background: var(--to-surface);
+  border-radius: 99px; padding: .75em 1.15em;
+  text-decoration: none;
+  transition: border-color .2s, background .2s, color .2s, transform .2s;
+}
+.topic-orbit .to-btn:hover { border-color: var(--to-accent); color: var(--to-fg); transform: translateY(-2px); text-decoration: none; }
+.topic-orbit .to-btn:focus-visible { outline: 3px solid var(--to-accent); outline-offset: 2px; }
+.topic-orbit .to-btn--fill, .topic-orbit .to-btn--fill:hover { background: var(--to-accent); border-color: var(--to-accent); color: #fff; }
+.topic-orbit .to-anim > * { animation: to-rise .45s cubic-bezier(.2,.7,.2,1) backwards; }
+.topic-orbit .to-anim > *:nth-child(2) { animation-delay: .05s; }
+.topic-orbit .to-anim > *:nth-child(3) { animation-delay: .1s; }
+.topic-orbit .to-anim > *:nth-child(4) { animation-delay: .15s; }
+.topic-orbit .to-prompt { margin: 0; color: var(--to-muted); font-size: .9rem; text-align: center; }
+
+@keyframes to-spin { to { transform: rotate(360deg); } }
+@keyframes to-ripple { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.7); opacity: 0; } }
+@keyframes to-pop { from { opacity: 0; scale: .4; } }
+@keyframes to-rise { from { opacity: 0; transform: translateY(10px); } }
+
+@container (max-width: 480px) {
+  .topic-orbit .to-core { width: 33%; }
+  .topic-orbit .to-label { max-width: 7.5em; padding-inline: .35em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .topic-orbit *, .topic-orbit *::before, .topic-orbit *::after { animation: none !important; transition-duration: .01ms !important; }
+  .topic-orbit .to-core { transform: none !important; }
+}
+</style>
+
+<section class="topic-orbit" id="topic-orbit" aria-labelledby="to-title">
+  <div class="to-wrap">
+    <header class="to-head">
+      <span class="to-eyebrow">Know the facts</span>
+      <h2 id="to-title">What young people are facing today</h2>
+      <p>Hover over or tap a topic to read about it.</p>
+    </header>
+
+    <div class="to-orbit" id="to-orbit">
+      <svg class="to-svg" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="to-track" cx="50" cy="50" r="38"></circle>
+        <circle class="to-track to-track--dash" cx="50" cy="50" r="46"></circle>
+        <circle class="to-track--glow" cx="50" cy="50" r="38"></circle>
+        <g id="to-beams"></g>
+      </svg>
+      <div class="to-core" id="to-core">
+        <div class="to-core-media" id="to-core-media"></div>
+        <div class="to-core-default"><b>Drug Educators</b><span>8 topics to explore</span></div>
+        <div class="to-core-topic" aria-hidden="true"><span id="to-core-icon"></span><b id="to-core-title"></b></div>
+      </div>
+    </div>
+
+    <p class="to-prompt" id="to-prompt">Tip: click a topic to keep it open.</p>
+
+    <div class="to-detail" id="to-detail" aria-live="polite">
+      <div class="to-clip"><article class="to-card" id="to-card"></article></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* ======================================================================
+     EDIT HERE
+     CENTER_IMAGE: full URL of the center photo. In WordPress, open the image
+       in Media Library and use "Copy URL to clipboard". Leave "" for the
+       built-in gradient badge.
+     TOPICS: exactly 8. The first 4 run down the right side (top to bottom),
+       the last 4 run up the left side (bottom to top).
+       hue = 0-360 position on the color wheel for that topic's color.
+       link.href = page to open from the topic's button (use "" to hide it).
+     ====================================================================== */
+  var CENTER_IMAGE = "";
+  var CENTER_ALT = "";
+
+  var TOPICS = [
+    { title: "Prevention", icon: "shield", hue: 205,
+      body: "Prevention starts with honest, early conversations. Young people who understand the real risks are better prepared to make their own choices.",
+      points: ["Start talking early and keep the conversation going.", "Ask questions and listen more than you lecture.", "Set clear expectations and explain the reasons behind them."],
+      link: { text: "Prevention resources", href: "#" } },
+    { title: "Fentanyl & Opioids", icon: "alert", hue: 25,
+      body: "Fentanyl is a synthetic opioid that is often pressed into counterfeit pills or mixed into other drugs without the buyer knowing.",
+      points: ["The DEA warns that 2 milligrams of fentanyl can be a deadly dose.", "Fake pills can look identical to real prescriptions.", "Naloxone (Narcan) can reverse an opioid overdose and is sold without a prescription."],
+      link: { text: "Fentanyl facts", href: "#" } },
+    { title: "Vaping & Nicotine", icon: "cloud", hue: 290,
+      body: "Vapes are marketed with bright colors and sweet flavors, but most contain nicotine, which is highly addictive.",
+      points: ["Some products labeled nicotine-free have been found to contain nicotine.", "Nicotine can harm the brain, which keeps developing until about age 25.", "Quitting support is available for teens as well as adults."],
+      link: { text: "Vaping facts", href: "#" } },
+    { title: "Cannabis", icon: "leaf", hue: 140,
+      body: "Cannabis is legal for adults in many states, but it carries specific risks for teens and young adults.",
+      points: ["Today's THC products can be much stronger than cannabis from past decades.", "Regular use in the teen years is linked to problems with memory and attention.", "Edibles take longer to take effect, which makes it easy to take too much."],
+      link: { text: "Cannabis facts", href: "#" } },
+    { title: "Alcohol", icon: "glass", hue: 60,
+      body: "Alcohol is the substance young people use most often, and it is easy to underestimate.",
+      points: ["Binge drinking increases the risk of injuries, alcohol poisoning and poor decisions.", "Mixing alcohol with other drugs raises the risk of overdose.", "Drinking early in life is linked to a higher risk of alcohol problems later on."],
+      link: { text: "Alcohol facts", href: "#" } },
+    { title: "Prescription Safety", icon: "pill", hue: 175,
+      body: "Medicine cabinets are a common source of misused drugs. A few simple habits make a home safer.",
+      points: ["Only take medicine prescribed to you, exactly as directed.", "Store medications locked up and keep track of how many are left.", "Bring unused medicine to a drug take-back location."],
+      link: { text: "Find a take-back site", href: "#" } },
+    { title: "Mental Health", icon: "heart", hue: 345,
+      body: "Substance use and mental health are closely linked. Many people who use drugs are also dealing with stress, anxiety or depression.",
+      points: ["Call or text 988 to reach the Suicide & Crisis Lifeline, any time.", "Watch for changes in sleep, friends, grades or mood.", "Asking for help is a sign of strength."],
+      link: { text: "Mental health support", href: "#" } },
+    { title: "Recovery & Support", icon: "sunrise", hue: 245,
+      body: "Treatment works, and recovery looks different for everyone. Support is available for people who use substances and for their families.",
+      points: ["SAMHSA's National Helpline: 1-800-662-4357. It is free, confidential and open 24/7.", "Family support groups help loved ones cope and find their footing.", "Recovery is a process, and setbacks do not mean failure."],
+      link: { text: "Find support", href: "#" } }
+  ];
+
+  /* Icons you can use: shield, alert, cloud, leaf, glass, pill, heart, sunrise */
+  var ICONS = {
+    shield: '<path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
+    alert:  '<path d="M12 3.5l9 16H3z"/><path d="M12 10v4.5"/><path d="M12 17.2v.1"/>',
+    cloud:  '<path d="M7 18h10a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 7 11.5 3.25 3.25 0 0 0 7 18z"/>',
+    leaf:   '<path d="M5 19C5 11 11 5 19 5c0 8-6 14-14 14z"/><path d="M5 19l8.5-8.5"/>',
+    glass:  '<path d="M7 3h10l-1 7a4 4 0 0 1-8 0z"/><path d="M12 14v6"/><path d="M8.5 20.5h7"/>',
+    pill:   '<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.6 8.6l6.8 6.8"/>',
+    heart:  '<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>',
+    sunrise:'<path d="M3 18.5h18"/><path d="M6.5 18.5a5.5 5.5 0 0 1 11 0"/><path d="M12 4.5v3"/><path d="M4.6 9.6l2 2"/><path d="M19.4 9.6l-2 2"/>'
+  };
+
+  /* ====================================================================== */
+
+  function init() {
+    var root = document.getElementById("topic-orbit");
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = "1";
+
+    var orbit = document.getElementById("to-orbit");
+    var core = document.getElementById("to-core");
+    var beamsG = document.getElementById("to-beams");
+    var detail = document.getElementById("to-detail");
+    var card = document.getElementById("to-card");
+    var prompt = document.getElementById("to-prompt");
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canHover = window.matchMedia("(hover: hover)").matches;
+    var NS = "http://www.w3.org/2000/svg";
+    var R = 38, CORE_R = 20; // ring and center radius, in % of the square
+    var nodes = [], beams = [];
+
+    function svgIcon(name) {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || "") + "</svg>";
+    }
+    function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+
+    if (CENTER_IMAGE) {
+      var img = new Image();
+      img.src = CENTER_IMAGE;
+      img.alt = CENTER_ALT;
+      document.getElementById("to-core-media").appendChild(img);
+      core.classList.add("has-image");
+    }
+
+    // 8 points at 45° steps, offset 22.5° so 4 sit on each side.
+    TOPICS.forEach(function (t, i) {
+      var a = (-67.5 + i * 45) * Math.PI / 180;
+      var x = 50 + R * Math.cos(a), y = 50 + R * Math.sin(a);
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "to-node";
+      btn.style.cssText = "--x:" + x + "%;--y:" + y + "%;--nh:" + t.hue + ";--i:" + i;
+      btn.setAttribute("aria-controls", "to-detail");
+      btn.setAttribute("aria-expanded", "false");
+      btn.innerHTML = '<span class="to-dot">' + svgIcon(t.icon) + '</span><span class="to-label">' + esc(t.title) + "</span>";
+      orbit.appendChild(btn);
+      nodes.push(btn);
+
+      var sx = 50 + (CORE_R + 1) * Math.cos(a), sy = 50 + (CORE_R + 1) * Math.sin(a);
+      var ex = 50 + (R - 6) * Math.cos(a), ey = 50 + (R - 6) * Math.sin(a);
+      var line = document.createElementNS(NS, "line");
+      line.setAttribute("x1", sx); line.setAttribute("y1", sy);
+      line.setAttribute("x2", ex); line.setAttribute("y2", ey);
+      line.setAttribute("pathLength", "1");
+      line.setAttribute("class", "to-beam");
+      var spark = document.createElementNS(NS, "circle");
+      spark.setAttribute("r", "0.9");
+      spark.setAttribute("class", "to-spark");
+      beamsG.appendChild(line); beamsG.appendChild(spark);
+      beams.push({ line: line, spark: spark, sx: sx, sy: sy, ex: ex, ey: ey });
+    });
+
+    var pinned = null, hovered = null, shown = null, closeTimer = null, sparkRaf = null;
+
+    function current() { return hovered !== null ? hovered : pinned; }
+
+    function render() {
+      var idx = current();
+      nodes.forEach(function (n, i) {
+        n.classList.toggle("active", i === idx);
+        n.classList.toggle("pinned", i === pinned);
+        n.setAttribute("aria-expanded", String(i === idx));
+        beams[i].line.classList.toggle("on", i === idx);
+        if (i !== idx) beams[i].spark.style.opacity = "0";
+      });
+      orbit.classList.toggle("is-active", idx !== null);
+      detail.classList.toggle("open", idx !== null);
+      prompt.hidden = pinned !== null;
+
+      if (idx === null) { cancelAnimationFrame(sparkRaf); return; }
+      var t = TOPICS[idx];
+      root.style.setProperty("--h", t.hue);
+      document.getElementById("to-core-icon").innerHTML = svgIcon(t.icon);
+      document.getElementById("to-core-title").textContent = t.title;
+
+      if (shown !== idx) {
+        shown = idx;
+        card.classList.remove("to-anim");
+        card.innerHTML =
+          '<div class="to-top"><span class="to-icon">' + svgIcon(t.icon) + "</span>" +
+          '<div><div class="to-kicker">Topic ' + (idx + 1) + " of " + TOPICS.length + "</div><h3>" + esc(t.title) + "</h3></div></div>" +
+          '<p class="to-body">' + esc(t.body) + "</p>" +
+          '<ul class="to-points">' + t.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul>" +
+          '<div class="to-foot">' +
+            (t.link && t.link.href ? '<a class="to-btn to-btn--fill" href="' + esc(t.link.href) + '">' + esc(t.link.text) + "</a>" : "<span></span>") +
+            '<div class="to-nav"><button type="button" class="to-btn" data-step="-1" aria-label="Previous topic">&larr; Prev</button>' +
+            '<button type="button" class="to-btn" data-step="1" aria-label="Next topic">Next &rarr;</button></div>' +
+          "</div>";
+        void card.offsetWidth;
+        card.classList.add("to-anim");
+      }
+      animateSpark(idx);
+    }
+
+    // A small light that travels along the active beam toward the topic.
+    function animateSpark(idx) {
+      cancelAnimationFrame(sparkRaf);
+      var b = beams[idx];
+      if (reduceMotion) { b.spark.setAttribute("cx", b.ex); b.spark.setAttribute("cy", b.ey); b.spark.style.opacity = "1"; return; }
+      var t0 = performance.now();
+      (function tick(now) {
+        var p = ((now - t0) % 1400) / 1400;
+        var e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+        b.spark.setAttribute("cx", b.sx + (b.ex - b.sx) * e);
+        b.spark.setAttribute("cy", b.sy + (b.ey - b.sy) * e);
+        b.spark.style.opacity = String(Math.sin(p * Math.PI));
+        sparkRaf = requestAnimationFrame(tick);
+      })(t0);
+    }
+
+    card.addEventListener("click", function (e) {
+      var s = e.target.closest("[data-step]");
+      if (!s) return;
+      var from = current() !== null ? current() : 0;
+      pinned = (from + Number(s.dataset.step) + TOPICS.length) % TOPICS.length;
+      hovered = null;
+      render();
+    });
+
+    nodes.forEach(function (n, i) {
+      n.addEventListener("pointerenter", function (e) {
+        if (e.pointerType !== "mouse") return;
+        clearTimeout(closeTimer);
+        hovered = i; render();
+      });
+      n.addEventListener("click", function () {
+        // Click pins a topic open; clicking the pinned topic again closes it.
+        pinned = pinned === i ? null : i;
+        hovered = null;
+        render();
+      });
+      n.addEventListener("keydown", function (e) {
+        var k = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+        if (k) { e.preventDefault(); nodes[(i + k + nodes.length) % nodes.length].focus(); }
+      });
+    });
+
+    // Leaving the ring closes a hover preview after a short pause.
+    orbit.addEventListener("pointerleave", function (e) {
+      core.style.setProperty("--rx", "0deg"); core.style.setProperty("--ry", "0deg");
+      nodes.forEach(function (n) { n.style.removeProperty("--mx"); n.style.removeProperty("--my"); });
+      if (e.pointerType !== "mouse") return;
+      closeTimer = setTimeout(function () { hovered = null; render(); }, 300);
+    });
+    orbit.addEventListener("pointermove", function (e) {
+      if (e.pointerType !== "mouse" || reduceMotion) return;
+      var r = orbit.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+      // Tilt the center image toward the cursor.
+      core.style.setProperty("--rx", (px * 14).toFixed(2) + "deg");
+      core.style.setProperty("--ry", (-py * 14).toFixed(2) + "deg");
+      // Nodes lean slightly toward the cursor when it is close.
+      nodes.forEach(function (n) {
+        var b = n.firstElementChild.getBoundingClientRect();
+        var dx = e.clientX - (b.left + b.width / 2), dy = e.clientY - (b.top + b.height / 2);
+        var d = Math.hypot(dx, dy), reach = b.width * 1.4;
+        var f = d < reach ? (1 - d / reach) * .28 : 0;
+        n.style.setProperty("--mx", (dx * f).toFixed(1) + "px");
+        n.style.setProperty("--my", (dy * f).toFixed(1) + "px");
+      });
+    });
+    // Moving the mouse from the ring into the panel keeps that topic open.
+    detail.addEventListener("pointerenter", function () {
+      clearTimeout(closeTimer);
+      if (hovered !== null) { pinned = hovered; hovered = null; render(); }
+    });
+    root.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && current() !== null) { pinned = hovered = null; render(); }
+    });
+
+    render();
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
