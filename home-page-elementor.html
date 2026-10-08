@@ -1,0 +1,2942 @@
+<style>
+/* =========================================================
+   DRUG EDUCATORS ALLIANCE HOMEPAGE
+   HOME-2 — FINAL POLISH BUILD
+   ========================================================= */
+
+.dea-home,
+.dea-home * {
+  box-sizing: border-box;
+}
+
+.dea-home {
+  --navy: #0B3A67;
+  --deep: #172B3A;
+  --blue: #146DAA;
+
+  --cyan: #19BCD2;
+  --cyan-dark: #0787A5;
+  --cyan-light: #62D8E7;
+  --cyan-soft: #EDF9FB;
+
+  --light-blue: #EAF4FA;
+  --text: #374151;
+
+  --gold: #E5A823;
+  --gold-hover: #F2B832;
+
+  --offwhite: #F7F9FB;
+  --white: #FFFFFF;
+  --border: #DCE5EC;
+
+  --shadow: 0 14px 40px rgba(11,58,103,.12);
+
+  --glow:
+    0 0 0 1px rgba(25,188,210,.08),
+    0 0 32px rgba(25,188,210,.18),
+    0 18px 38px rgba(11,58,103,.13);
+
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  color: var(--deep);
+  background: #fff;
+  line-height: 1.55;
+}
+
+.dea-home img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dea-home a {
+  text-decoration: none;
+}
+
+.dea-wrap {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.dea-section {
+  padding: 76px 0;
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+.dea-kicker {
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.dea-title {
+  margin: 0 0 16px;
+  color: var(--deep);
+  font-size: clamp(30px,4vw,48px);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.dea-subtitle {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.dea-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: #fff !important;
+  font-weight: 700;
+
+  transition:
+    transform .22s ease,
+    background .22s ease,
+    box-shadow .22s ease,
+    border-color .22s ease;
+}
+
+.dea-btn:hover {
+  transform: translateY(-2px);
+  background: #082e52;
+  color: #fff !important;
+
+  box-shadow:
+    0 0 0 2px rgba(25,188,210,.10),
+    0 0 23px rgba(25,188,210,.18),
+    0 10px 23px rgba(11,58,103,.16);
+}
+
+.dea-btn:focus-visible,
+.dea-person-card:focus-visible,
+.dea-answer-card:focus-visible,
+.dea-cover:focus-visible,
+.dea-text-link:focus-visible {
+  outline: 3px solid var(--cyan-light);
+  outline-offset: 4px;
+}
+
+.dea-btn-gold {
+  background: var(--gold);
+  color: #fff !important;
+}
+
+.dea-btn-gold:hover {
+  background: var(--gold-hover);
+  color: #fff !important;
+
+  box-shadow:
+    0 0 0 2px rgba(229,168,35,.12),
+    0 0 24px rgba(229,168,35,.25),
+    0 11px 24px rgba(0,0,0,.12);
+}
+
+.dea-btn-outline {
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff !important;
+}
+
+.dea-btn-outline:hover {
+  background: #fff;
+  color: var(--navy) !important;
+
+  box-shadow:
+    0 0 26px rgba(101,198,242,.24);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.dea-hero {
+  position: relative;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #052A48;
+}
+
+.dea-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.dea-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,42,72,.97) 0%,
+      rgba(5,42,72,.88) 40%,
+      rgba(5,42,72,.40) 68%,
+      rgba(5,42,72,.10) 100%
+    );
+}
+
+.dea-hero .dea-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.dea-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  padding: 95px 0 135px;
+}
+
+.dea-hero .dea-kicker {
+  color: #8fd8ff;
+}
+
+.dea-hero h1 {
+  margin: 0 0 22px;
+  color: #fff;
+  font-size: clamp(43px,6vw,74px);
+  font-weight: 850;
+  line-height: .98;
+  letter-spacing: -.025em;
+  max-width: 760px;
+}
+
+.dea-hero h1 span {
+  color: #65c6f2;
+}
+
+.dea-hero p {
+  max-width: 600px;
+  margin: 0 0 30px;
+  color: rgba(255,255,255,.95);
+  font-size: 19px;
+}
+
+.dea-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
+/* =========================================================
+   IMPACT
+   ========================================================= */
+
+.dea-stats {
+  position: relative;
+  z-index: 5;
+  margin-top: -50px;
+}
+
+.dea-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  overflow: hidden;
+  border: 1px solid rgba(25,188,210,.10);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.dea-stat {
+  position: relative;
+  padding: 27px 20px;
+  text-align: center;
+  background: #fff;
+
+  transition:
+    transform .23s ease,
+    background .23s ease,
+    box-shadow .23s ease;
+}
+
+.dea-stat:hover {
+  z-index: 2;
+  transform: translateY(-3px);
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f0fbfd 100%
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(25,188,210,.30),
+    inset 0 0 28px rgba(25,188,210,.11);
+}
+
+.dea-stat:not(:last-child):after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 22%;
+  width: 1px;
+  height: 56%;
+  background: var(--border);
+}
+
+.dea-stat-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 9px;
+  border-radius: 50%;
+  background: var(--cyan-soft);
+  font-size: 27px;
+
+  transition:
+    transform .22s ease,
+    background .22s ease,
+    box-shadow .22s ease;
+}
+
+.dea-stat:hover .dea-stat-icon {
+  transform: scale(1.06);
+  background: #DDF6FA;
+  box-shadow: 0 0 21px rgba(25,188,210,.23);
+}
+
+.dea-stat strong {
+  display: block;
+  color: var(--navy);
+  font-size: 25px;
+  line-height: 1.05;
+}
+
+.dea-stat span {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   WHO WE HELP
+   ========================================================= */
+
+.dea-who-head {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 55px;
+  align-items: end;
+  margin-bottom: 32px;
+}
+
+.dea-card-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: 13px;
+}
+
+.dea-person-card {
+  position: relative;
+  min-height: 325px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--navy);
+  box-shadow: 0 6px 20px rgba(0,0,0,.10);
+
+  transition:
+    transform .24s ease,
+    border-color .24s ease,
+    box-shadow .24s ease;
+}
+
+.dea-person-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(25,188,210,.65);
+
+  box-shadow:
+    0 0 0 1px rgba(25,188,210,.08),
+    0 0 34px rgba(25,188,210,.23),
+    0 18px 38px rgba(11,58,103,.18);
+}
+
+.dea-person-card img {
+  height: 325px;
+  object-fit: cover;
+
+  transition:
+    transform .4s ease,
+    filter .3s ease;
+}
+
+.dea-person-card:hover img {
+  transform: scale(1.035);
+  filter: saturate(1.04);
+}
+
+.dea-person-card:nth-child(1) img {
+  object-position: 45% center;
+}
+
+.dea-person-card:nth-child(2) img {
+  object-position: 62% center;
+}
+
+.dea-person-card:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent 35%,
+      rgba(4,31,54,.97) 100%
+    );
+
+  transition: background .25s ease;
+}
+
+.dea-person-card:hover:after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8,84,111,.05) 26%,
+      rgba(3,49,71,.98) 100%
+    );
+}
+
+.dea-person-copy {
+  position: absolute;
+  left: 16px;
+  right: 14px;
+  bottom: 16px;
+  z-index: 3;
+  color: #fff;
+}
+
+.dea-person-copy h3 {
+  margin: 0 0 7px;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.dea-person-copy p {
+  margin: 0;
+  color: rgba(255,255,255,.92);
+  font-size: 12px;
+  line-height: 1.36;
+}
+
+
+/* =========================================================
+   SEE IT IN ACTION
+   ========================================================= */
+
+.dea-action-section {
+  color: #fff;
+
+  background:
+    linear-gradient(
+      120deg,
+      #073b67,
+      #075382 70%,
+      #0871aa
+    );
+}
+
+.dea-action-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 1.15fr .70fr;
+  gap: 38px;
+  align-items: center;
+}
+
+.dea-action-image {
+  overflow: hidden;
+  border: 1px solid rgba(101,198,242,.20);
+  border-radius: 13px;
+  box-shadow: 0 16px 36px rgba(0,0,0,.20);
+}
+
+.dea-action-image img {
+  height: 305px;
+  object-fit: cover;
+}
+
+.dea-action-copy h2 {
+  margin: 0 0 15px;
+  color: #fff;
+  font-size: 38px;
+  line-height: 1.08;
+}
+
+.dea-action-copy p {
+  margin: 0 0 23px;
+  color: rgba(255,255,255,.91);
+}
+
+.dea-real-list {
+  padding-left: 30px;
+  border-left: 1px solid rgba(255,255,255,.33);
+}
+
+.dea-real-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 23px 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.dea-real-icon {
+  flex: 0 0 46px;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #9bdafa;
+  color: #073b67;
+  font-size: 21px;
+  box-shadow: 0 0 20px rgba(155,218,250,.14);
+}
+
+
+/* =========================================================
+   DRUG EDUCATOR CERTIFICATION SPOTLIGHT
+   ========================================================= */
+
+.dea-certification {
+  background: #fff;
+}
+
+.dea-certification-card {
+  display: grid;
+  grid-template-columns: minmax(0,1.55fr) minmax(280px,.75fr);
+  gap: 52px;
+  align-items: center;
+  overflow: hidden;
+  padding: 46px 52px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at 92% 15%,
+      rgba(229,168,35,.14),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fbfd 0%,
+      #ffffff 54%,
+      #edf9fb 100%
+    );
+  box-shadow: var(--shadow);
+}
+
+.dea-certification-copy h2 {
+  max-width: 680px;
+  margin: 0 0 16px;
+  color: var(--deep);
+  font-size: clamp(34px,4vw,49px);
+  font-weight: 800;
+  line-height: 1.04;
+}
+
+.dea-certification-copy > p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.dea-certification-format-line {
+  margin: 8px 0 0;
+  color: var(--navy);
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.dea-certification-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 13px;
+  margin: 24px 0 18px;
+}
+
+.dea-certification-mode {
+  padding: 17px 18px;
+  border: 1px solid #cfe4ec;
+  border-radius: 11px;
+  background: rgba(255,255,255,.90);
+  box-shadow: 0 4px 12px rgba(11,58,103,.05);
+}
+
+.dea-certification-mode strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.dea-certification-mode span {
+  display: block;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.dea-certification-mode .dea-mode-price {
+  margin-top: 6px;
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.dea-certification-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0 27px;
+}
+
+.dea-certification-point {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 13px;
+  border: 1px solid #cfe4ec;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 3px 9px rgba(11,58,103,.04);
+}
+
+.dea-certification-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dea-certification-visual {
+  text-align: center;
+}
+
+.dea-certification-seal {
+  width: min(250px,100%);
+  margin: 0 auto 17px;
+  filter: drop-shadow(0 12px 22px rgba(11,58,103,.16));
+}
+
+.dea-certification-seal img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.dea-certification-visual p {
+  max-width: 310px;
+  margin: 0 auto;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.dea-certification-visual strong {
+  color: var(--navy);
+}
+
+
+/* =========================================================
+   PROGRAMS
+   ========================================================= */
+
+.dea-programs {
+  background: var(--offwhite);
+}
+
+.dea-program-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.dea-program-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 21px;
+}
+
+.dea-program-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(11,58,103,.07);
+
+  transition:
+    transform .24s ease,
+    border-color .24s ease,
+    background .24s ease,
+    box-shadow .24s ease;
+}
+
+.dea-program-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(25,188,210,.62);
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f3fbfd 100%
+    );
+
+  box-shadow: var(--glow);
+}
+
+.dea-program-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.dea-program-image img {
+  height: 225px;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.dea-program-card:hover .dea-program-image img {
+  transform: scale(1.025);
+}
+
+.dea-status {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  padding: 6px 11px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dea-status-live {
+  background: #b8f6cf;
+  color: #06451f;
+}
+
+.dea-status-built {
+  background: #ffe3a0;
+  color: #674900;
+}
+
+.dea-status-development {
+  background: #c6ecfa;
+  color: #075172;
+}
+
+.dea-program-copy {
+  padding: 23px;
+}
+
+.dea-program-copy h3 {
+  margin: 0 0 9px;
+  color: var(--deep);
+  font-size: 22px;
+}
+
+.dea-program-copy p {
+  margin: 0 0 17px;
+  color: var(--text);
+}
+
+.dea-text-link {
+  color: var(--blue) !important;
+  font-weight: 700;
+
+  transition:
+    color .2s ease,
+    text-shadow .2s ease;
+}
+
+.dea-text-link:hover {
+  color: var(--cyan-dark) !important;
+  text-shadow: 0 0 14px rgba(25,188,210,.16);
+}
+
+
+/* =========================================================
+   THE REAL COST
+   ========================================================= */
+
+.dea-real-cost {
+  color: #fff;
+
+  background:
+    linear-gradient(
+      120deg,
+      #082f51,
+      #0b4774
+    );
+}
+
+.dea-real-cost-grid {
+  display: grid;
+  grid-template-columns: .82fr 1.8fr;
+  gap: 55px;
+  align-items: center;
+}
+
+.dea-real-cost .dea-kicker {
+  color: #84d7ff;
+}
+
+.dea-real-cost h2 {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 47px;
+}
+
+.dea-real-cost p {
+  color: rgba(255,255,255,.89);
+  font-size: 17px;
+}
+
+.dea-covers {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 18px;
+}
+
+.dea-cover {
+  display: block;
+  border-radius: 7px;
+
+  transition:
+    transform .24s ease,
+    filter .24s ease;
+}
+
+.dea-cover:hover {
+  transform: translateY(-8px);
+  filter: drop-shadow(0 0 15px rgba(25,188,210,.32));
+}
+
+.dea-cover img {
+  aspect-ratio: .74;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 6px;
+
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.32);
+
+  transition:
+    border-color .22s ease,
+    box-shadow .22s ease;
+}
+
+.dea-cover:hover img {
+  border-color: rgba(98,216,231,.65);
+
+  box-shadow:
+    0 0 26px rgba(25,188,210,.18),
+    0 18px 35px rgba(0,0,0,.35);
+}
+
+
+/* =========================================================
+   REAL ANSWERS
+   ========================================================= */
+
+.dea-answers-head {
+  display: grid;
+  grid-template-columns: .82fr 1fr;
+  gap: 55px;
+  align-items: end;
+  margin-bottom: 30px;
+}
+
+.dea-answer-grid {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: 14px;
+}
+
+.dea-answer-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--deep) !important;
+  box-shadow: 0 6px 18px rgba(11,58,103,.06);
+
+  transition:
+    transform .24s ease,
+    border-color .24s ease,
+    background .24s ease,
+    box-shadow .24s ease;
+}
+
+.dea-answer-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(25,188,210,.65);
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #effafd 100%
+    );
+
+  box-shadow: var(--glow);
+}
+
+.dea-answer-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .24s ease;
+}
+
+.dea-answer-card:hover::after {
+  transform: scaleX(1);
+}
+
+.dea-answer-card img {
+  height: 140px;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+
+.dea-answer-card:hover img {
+  transform: scale(1.035);
+}
+
+.dea-answer-card strong {
+  display: block;
+  padding: 14px;
+  font-size: 14px;
+
+  transition:
+    color .2s ease,
+    background .2s ease;
+}
+
+.dea-answer-card:hover strong {
+  color: var(--cyan-dark);
+  background: #EAF8FB;
+}
+
+
+/* =========================================================
+   BOTTOM CTA
+   ========================================================= */
+
+.dea-bottom-cta {
+  position: relative;
+  min-height: 410px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 82px 0;
+  color: #fff;
+
+  background: #05395F;
+}
+
+.dea-bottom-cta-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.dea-bottom-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,57,95,.98) 0%,
+      rgba(5,57,95,.90) 44%,
+      rgba(5,57,95,.45) 69%,
+      rgba(5,57,95,.20) 100%
+    );
+}
+
+.dea-bottom-cta .dea-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.dea-bottom-cta h2 {
+  max-width: 735px;
+  margin: 0 0 17px;
+  color: #fff;
+  font-size: 41px;
+  line-height: 1.08;
+}
+
+.dea-bottom-cta p {
+  max-width: 670px;
+  margin: 0;
+  color: rgba(255,255,255,.94);
+  font-size: 17px;
+}
+
+.dea-bottom-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width:1050px) {
+
+  .dea-card-grid-6,
+  .dea-answer-grid {
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .dea-covers {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .dea-program-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .dea-certification-card {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .dea-certification-visual {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 24px;
+    align-items: center;
+    text-align: left;
+  }
+
+  .dea-certification-seal {
+    width: 190px;
+    margin: 0;
+  }
+
+  .dea-certification-visual p {
+    max-width: none;
+    margin: 0;
+  }
+
+  .dea-action-grid,
+  .dea-real-cost-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dea-real-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .dea-real-item {
+    margin: 5px 0;
+  }
+}
+
+
+@media (max-width:767px) {
+
+  .dea-wrap {
+    width: min(100% - 28px,1180px);
+  }
+
+  .dea-section {
+    padding: 53px 0;
+  }
+
+  /* CLEAN BLUE MOBILE HERO - NO BACKGROUND PHOTO */
+  .dea-hero {
+    min-height: 0;
+    display: block;
+    background:
+      radial-gradient(
+        circle at 88% 12%,
+        rgba(25,188,210,.18),
+        transparent 34%
+      ),
+      linear-gradient(
+        145deg,
+        #052A48 0%,
+        #0B3A67 62%,
+        #075B76 100%
+      );
+  }
+
+  .dea-home .dea-hero-bg {
+    display: none !important;
+  }
+
+  .dea-hero::after {
+    display: none;
+  }
+
+  .dea-hero-content {
+    max-width: none;
+    padding: 52px 0 70px;
+  }
+
+  .dea-hero p {
+    max-width: none;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .dea-stats {
+    margin-top: -26px;
+  }
+
+  .dea-stat-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .dea-stat:nth-child(2):after {
+    display: none;
+  }
+
+  .dea-who-head,
+  .dea-answers-head {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .dea-card-grid-6,
+  .dea-answer-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .dea-program-head {
+    display: block;
+  }
+
+  .dea-program-head .dea-btn {
+    margin-top: 15px;
+  }
+
+  .dea-program-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dea-certification-mode-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dea-certification-card {
+    padding: 34px 26px;
+  }
+
+  .dea-certification-visual {
+    display: block;
+    text-align: center;
+  }
+
+  .dea-certification-seal {
+    width: 210px;
+    margin: 0 auto 16px;
+  }
+
+  .dea-certification-visual p {
+    margin: 0 auto;
+  }
+
+  .dea-covers {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .dea-bottom-cta {
+    min-height: 430px;
+    padding: 75px 0;
+  }
+}
+
+
+@media (max-width:480px) {
+
+  .dea-hero h1 {
+    font-size: 39px;
+    line-height: 1.02;
+  }
+
+  .dea-title {
+    font-size: 34px;
+    line-height: 1.05;
+  }
+
+  .dea-action-copy h2,
+  .dea-real-cost h2,
+  .dea-bottom-cta h2 {
+    font-size: 29px;
+    line-height: 1.08;
+  }
+
+  .dea-btn {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 15px;
+    line-height: 1.25;
+  }
+
+  .dea-card-grid-6,
+  .dea-answer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dea-person-card,
+  .dea-person-card img {
+    min-height: 350px;
+  }
+
+  .dea-person-copy h3 {
+    font-size: 17px;
+  }
+
+  .dea-person-copy p {
+    font-size: 13px;
+  }
+
+  .dea-program-copy h3 {
+    font-size: 21px;
+  }
+
+  .dea-answer-card strong {
+    font-size: 15px;
+  }
+
+  .dea-covers {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dea-hero-actions,
+  .dea-bottom-actions,
+  .dea-certification-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dea-certification-actions .dea-btn {
+    width: 100%;
+  }
+
+  .dea-bottom-cta {
+    padding: 62px 0;
+  }
+
+  .dea-person-card:nth-child(1) img,
+  .dea-person-card:nth-child(2) img {
+    object-position: center center;
+  }
+
+  .dea-person-card:hover,
+  .dea-program-card:hover,
+  .dea-answer-card:hover,
+  .dea-cover:hover,
+  .dea-stat:hover {
+    transform: none;
+  }
+}
+
+/* =========================================================
+   ONE PLATFORM
+   ========================================================= */
+
+.dea-one-platform {
+  /* Rendered normally (not skipped) so the diagram can measure its connectors. */
+  content-visibility: visible;
+  contain-intrinsic-size: none;
+  /* Keeps the diagram's glow and slide-in from widening the page on phones. */
+  overflow: hidden;
+  overflow: clip;
+  background:
+    radial-gradient(
+      circle at 50% 55%,
+      rgba(25,188,210,.08),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f1f9fd 100%
+    );
+}
+
+.dea-one-head {
+  margin-bottom: 8px;
+}
+
+.dea-one-status {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  background: #c6ecfa;
+  color: #075172;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dea-one-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 28px;
+  margin-top: 34px;
+}
+
+@media (max-width:480px) {
+
+  .dea-one-actions {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}
+
+</style>
+
+
+<main class="dea-home">
+
+
+<!-- HERO -->
+
+<section class="dea-hero">
+
+  <img
+    class="dea-hero-bg"
+    src="/wp-content/uploads/2026/08/Wide-Auditorium-Stage.webp"
+    alt=""
+    width="1600"
+    height="900"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    aria-hidden="true">
+
+  <div class="dea-wrap">
+
+    <div class="dea-hero-content">
+
+      <div class="dea-kicker">
+        Truthful drug education
+      </div>
+
+      <h1>
+        Real Conversations.<br>
+        <span>Brighter Futures.</span>
+      </h1>
+
+      <p>
+        Drug Educators Alliance provides truthful, factual, age-appropriate
+        drug education, practical resources and community support to help
+        young people understand drugs and make informed decisions.
+      </p>
+
+      <div class="dea-hero-actions">
+
+        <a
+          class="dea-btn dea-btn-gold"
+          href="/schools-educators/">
+          Bring Drug Education to My School →
+        </a>
+
+        <a
+          class="dea-btn dea-btn-outline"
+          href="/drug-information/">
+          Explore Drug Information
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- IMPACT -->
+
+<section class="dea-stats">
+
+  <div class="dea-wrap">
+
+    <div class="dea-stat-grid">
+
+      <div class="dea-stat">
+        <div class="dea-stat-icon">👥</div>
+        <strong>Thousands</strong>
+        <span>of educators trained</span>
+      </div>
+
+      <div class="dea-stat">
+        <div class="dea-stat-icon">🎓</div>
+        <strong>Millions</strong>
+        <span>of young people reached</span>
+      </div>
+
+      <div class="dea-stat">
+        <div class="dea-stat-icon">🇺🇸</div>
+        <strong>50 States</strong>
+        <span>programs and partnerships</span>
+      </div>
+
+      <div class="dea-stat">
+        <div class="dea-stat-icon">♥</div>
+        <strong>501(c)(3)</strong>
+        <span>Florida nonprofit organization</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHO WE HELP -->
+
+<section class="dea-section">
+
+  <div class="dea-wrap">
+
+    <div class="dea-who-head">
+
+      <div>
+
+        <div class="dea-kicker">
+          Who we help
+        </div>
+
+        <h2 class="dea-title">
+          Drug education for the people facing these questions every day.
+        </h2>
+
+      </div>
+
+      <p class="dea-subtitle">
+        From classrooms to courtrooms, Drug Educators Alliance provides
+        practical drug education resources for people working to prevent
+        drug abuse and help others make informed decisions.
+      </p>
+
+    </div>
+
+
+    <div class="dea-card-grid-6">
+
+      <a class="dea-person-card"
+         href="/schools-educators/">
+
+        <img
+          src="/wp-content/uploads/2026/01/teacher-stage-2-1.webp"
+          alt="Teacher presenting drug education to students"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <div class="dea-person-copy">
+          <h3>Schools &amp; Educators</h3>
+          <p>
+            Presentations and educational resources for teachers and schools.
+          </p>
+        </div>
+
+      </a>
+
+
+      <a class="dea-person-card"
+         href="/parents/">
+
+        <img
+          src="/wp-content/uploads/2026/09/dea-real-answers-talking-with-teens.webp"
+          alt="Parent having a supportive conversation with a teenager"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <div class="dea-person-copy">
+          <h3>Parents &amp; Families</h3>
+          <p>
+            Clear information and practical guidance for conversations about drugs.
+          </p>
+        </div>
+
+      </a>
+
+
+      <a class="dea-person-card"
+         href="/law-enforcement-courts/">
+
+        <img
+          src="/wp-content/uploads/2026/09/drug-education-law-enforcement-courts.webp"
+          alt="Law enforcement officer participating in community drug education"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <div class="dea-person-copy">
+          <h3>Law Enforcement &amp; Courts</h3>
+          <p>
+            Drug education resources for agencies, courts and diversion stakeholders.
+          </p>
+        </div>
+
+      </a>
+
+
+      <a class="dea-person-card"
+         href="/workforce-drug-education/">
+
+        <img
+          src="/wp-content/uploads/2026/09/Workplace-Safety-Training-Session.png"
+          alt="Employees participating in a workplace safety training session"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <div class="dea-person-copy">
+          <h3>Employers</h3>
+          <p>
+            Workplace drug education resources are currently in development.
+          </p>
+        </div>
+
+      </a>
+
+
+      <a class="dea-person-card"
+         href="/programs/">
+
+        <img
+          src="/wp-content/uploads/2026/09/Campus-Friends-in-Conversation.png"
+          alt="Young people talking together in a community setting"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <div class="dea-person-copy">
+          <h3>Youth Leaders</h3>
+          <p>
+            Resources for youth groups, community leaders and prevention partners.
+          </p>
+        </div>
+
+      </a>
+
+
+      <a class="dea-person-card"
+         href="/community-organizations/">
+
+        <img
+          src="/wp-content/uploads/2026/09/drug-educators-alliance-community-organizations.png"
+          alt="Drug Educators Alliance volunteers participating in a community event"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <div class="dea-person-copy">
+          <h3>Community Organizations</h3>
+          <p>
+            Partnerships that help expand truthful drug education.
+          </p>
+        </div>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SEE IT IN ACTION -->
+
+<section class="dea-section dea-action-section">
+
+  <div class="dea-wrap">
+
+    <div class="dea-action-grid">
+
+      <div class="dea-action-image">
+
+        <img
+          src="/wp-content/uploads/2026/08/Wide-Auditorium-Stage.webp"
+          alt="Drug education presentation in a large auditorium"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low"
+    width="1600"
+    height="900">
+
+      </div>
+
+
+      <div class="dea-action-copy">
+
+        <div class="dea-kicker"
+             style="color:#8fd8ff;">
+          See it in action
+        </div>
+
+        <h2>
+          Education is more than handing someone a brochure.
+        </h2>
+
+        <p>
+          Drug Educators Alliance presentations give people factual information
+          they can understand, discuss and use when making decisions about drugs.
+        </p>
+
+        <a class="dea-btn dea-btn-gold"
+           href="/free-drug-education-for-youth/">
+          Explore Youth Drug Education →
+        </a>
+
+      </div>
+
+
+      <div class="dea-real-list">
+
+        <div class="dea-real-item">
+          <span class="dea-real-icon">?</span>
+          Real questions
+        </div>
+
+        <div class="dea-real-item">
+          <span class="dea-real-icon">✓</span>
+          Real answers
+        </div>
+
+        <div class="dea-real-item">
+          <span class="dea-real-icon">+</span>
+          Practical tools
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DRUG EDUCATOR CERTIFICATION -->
+
+<section class="dea-section dea-certification">
+
+  <div class="dea-wrap">
+
+    <div class="dea-certification-card">
+
+      <div class="dea-certification-copy">
+
+        <div class="dea-kicker">
+          Now Enrolling
+        </div>
+
+        <h2>
+          Become a Certified Drug Educator.
+        </h2>
+
+        <div class="dea-certification-format-line">
+          Live online and private in-person training for people who work with young people.
+        </div>
+
+        <p>
+          Drug Educators Alliance offers live, instructor-led eight-hour training
+          for educators, law enforcement, prevention professionals, youth leaders,
+          parents and others who work with young people. Build practical communication
+          skills, learn how to handle real situations and leave with ready-to-use
+          curriculum and resources.
+        </p>
+
+        <div class="dea-certification-mode-grid">
+
+          <div class="dea-certification-mode">
+            <strong>Live Online Training</strong>
+            <span>Choose a scheduled live training date and participate with an instructor through Zoom.</span>
+            <span class="dea-mode-price">Q4 Special: $199 per participant</span>
+          </div>
+
+          <div class="dea-certification-mode">
+            <strong>Private In-Person Training</strong>
+            <span>Bring Drug Educators Alliance to your school, agency, organization or community for a private training.</span>
+          </div>
+
+        </div>
+
+        <div class="dea-certification-points">
+          <span class="dea-certification-point">8-Hour Live Training</span>
+          <span class="dea-certification-point">2-Year Certification</span>
+          <span class="dea-certification-point">Gold Seal Path</span>
+        </div>
+
+        <div class="dea-certification-actions">
+
+          <a class="dea-btn dea-btn-gold"
+             href="/drug-educator-certification/">
+            View Drug Educator Training →
+          </a>
+
+          <a class="dea-btn"
+             href="/drug-educator-certification-registration/">
+            Register Now
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="dea-certification-visual">
+
+        <div class="dea-certification-seal">
+
+          <img
+            src="https://drugeducators.org/wp-content/uploads/2026/10/dea-certification-gold-seal-badge-Background-Removed.png"
+            alt="Drug Educators Alliance Gold Seal certification badge"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low">
+
+        </div>
+
+        <p>
+          <strong>Gold Seal recognition</strong> is available after certification
+          for educators who document approved drug education delivered to 100+
+          young people across at least four separate sessions.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PROGRAMS -->
+
+<section class="dea-section dea-programs">
+
+  <div class="dea-wrap">
+
+    <div class="dea-program-head">
+
+      <div>
+
+        <div class="dea-kicker">
+          Programs, Training &amp; Initiatives
+        </div>
+
+        <h2 class="dea-title">
+          Practical education for schools, communities and professionals.
+        </h2>
+
+      </div>
+
+      <a class="dea-btn"
+         href="/programs/">
+        View All Programs →
+      </a>
+
+    </div>
+
+
+    <div class="dea-program-grid">
+
+      <article class="dea-program-card">
+
+        <div class="dea-program-image">
+
+          <img
+            src="https://drugeducators.org/wp-content/uploads/2026/10/drug-educator-certification-hero-darren-tessitore.jpg"
+            alt="Drug Educator Training instructor presenting to educators"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low">
+
+          <span class="dea-status dea-status-live">
+            Operating now
+          </span>
+
+        </div>
+
+        <div class="dea-program-copy">
+
+          <h3>
+            Drug Educator Training
+          </h3>
+
+          <p>
+            Live online and private in-person eight-hour training with practical communication
+            skills, ready-to-use youth curriculum and a two-year Drug Educator Certification.
+          </p>
+
+          <a class="dea-text-link"
+             href="/drug-educator-certification/">
+            Learn more →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <article class="dea-program-card">
+
+        <div class="dea-program-image">
+
+          <img
+            src="/wp-content/uploads/2026/08/Wide-Auditorium-Stage.webp"
+            alt="Youth drug education presentation"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low"
+    width="1600"
+    height="900">
+
+          <span class="dea-status dea-status-live">
+            Operating now
+          </span>
+
+        </div>
+
+        <div class="dea-program-copy">
+
+          <h3>
+            Free Youth Drug Education
+          </h3>
+
+          <p>
+            Free youth drug education presentations are available when staffing
+            and funding permit.
+          </p>
+
+          <a class="dea-text-link"
+             href="/free-drug-education-for-youth/">
+            Learn more →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <article class="dea-program-card">
+
+        <div class="dea-program-image">
+
+          <img
+            src="/wp-content/uploads/2026/09/dea-first-time-offender-program.webp"
+            alt="First-Time Offender online drug education course"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+          <span class="dea-status dea-status-built">
+            Course developed
+          </span>
+
+        </div>
+
+        <div class="dea-program-copy">
+
+          <h3>
+            First-Time Offender Program
+          </h3>
+
+          <p>
+            An online educational course has been developed for first-time
+            offender and diversion settings. Broad court adoption and national
+            implementation have not yet occurred.
+          </p>
+
+          <a class="dea-text-link"
+             href="/first-time-offender-program/">
+            Learn more →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <article class="dea-program-card">
+
+        <div class="dea-program-image">
+
+          <img
+            src="/wp-content/uploads/2026/09/dea-national-youth-prevention-campaign.webp"
+            alt="Young people participating in a youth prevention campaign"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+          <span class="dea-status dea-status-development">
+            In development
+          </span>
+
+        </div>
+
+        <div class="dea-program-copy">
+
+          <h3>
+            National Youth Drug Prevention Campaign
+          </h3>
+
+          <p>
+            A national campaign is being developed to give young people truthful,
+            direct and age-appropriate information about drugs.
+          </p>
+
+          <a class="dea-text-link"
+             href="/programs/">
+            Learn more →
+          </a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ONE PLATFORM -->
+
+<section class="dea-section dea-one-platform" id="one-platform">
+
+  <div class="dea-wrap">
+
+    <div class="dea-who-head dea-one-head">
+
+      <div>
+
+        <div class="dea-kicker">
+          The future we're building
+        </div>
+
+        <h2 class="dea-title">
+          One platform to connect everything we do.
+        </h2>
+
+      </div>
+
+      <div>
+
+        <p class="dea-subtitle">
+          ONE Platform will bring our programs, courses, research and data
+          together in one place, so young people, families, educators, courts
+          and employers can find exactly what they need. Hover over or tap any
+          area below for a preview of what's planned.
+        </p>
+
+        <span class="dea-one-status">In development</span>
+
+      </div>
+
+    </div>
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <style>
+    /* Layout: left column of 4 pills, the ONE Platform disc, right column of 4 pills; dotted connectors drawn between them; description card below (inline under the pill on phones). All rules are scoped to #one-orbit. */
+    #one-orbit {
+      --oo-bg: #f7fbfe;
+      --oo-surface: #ffffff;
+      --oo-ink: #0b1f4b;
+      --oo-muted: #4f5f7a;
+      --oo-line: #e2eaf3;
+      --oo-navy: #04173d;
+      --oo-glow: #2fb8ff;
+      --oo-font: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --c: #2fb8ff;      /* active area's line color, set by the script */
+      --tuck-x: clamp(0px, 3.2vw, 44px);
+    }
+    #one-orbit, #one-orbit *, #one-orbit *::before, #one-orbit *::after { box-sizing: border-box; }
+    #one-orbit [hidden] { display: none !important; }
+    #one-orbit {
+      position: relative;
+      background: transparent;
+      color: var(--oo-ink);
+      font: 400 1rem/1.55 var(--oo-font);
+      -webkit-font-smoothing: antialiased;
+      padding: .5rem 0 0;
+      margin: 0;
+    }
+    #one-orbit .oo-wrap { max-width: 1200px; margin-inline: auto; display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+    #one-orbit .oo-hint { margin: 0; text-align: center; color: var(--oo-muted); font-size: .95rem; font-weight: 500; }
+
+    /* ---------- Stage ---------- */
+    #one-orbit .oo-stage {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      column-gap: clamp(2.5rem, 6vw, 5.5rem);
+    }
+    #one-orbit .oo-col { display: grid; gap: clamp(1rem, 2.4vw, 1.75rem); position: relative; z-index: 2; }
+    #one-orbit .oo-col--left { justify-items: end; }
+    #one-orbit .oo-col--right { justify-items: start; }
+    #one-orbit .oo-links { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 1; }
+
+    /* ---------- Pills ---------- */
+    #one-orbit button.oo-pill {
+      all: unset; box-sizing: border-box;
+      --pc: #2fb8ff; --pt: #dcf4fd; --pi: #7cc8f0;
+      position: relative;
+      display: flex; align-items: center; gap: 1rem;
+      width: min(100%, 25rem);
+      min-height: clamp(84px, 8vw, 104px);
+      padding: .55rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--pt) 60%, #fff), var(--pt));
+      border: 1.5px solid color-mix(in srgb, var(--pc) 28%, #fff);
+      box-shadow: 0 10px 30px -14px color-mix(in srgb, var(--pc) 55%, transparent), inset 0 1px 0 #fff;
+      cursor: pointer; overflow: hidden; isolation: isolate;
+      font-family: var(--oo-font); color: var(--oo-ink);
+      transition: transform .35s cubic-bezier(.2,1.2,.4,1), box-shadow .35s, border-color .3s, opacity .3s;
+      -webkit-tap-highlight-color: transparent;
+      animation: oo-in .7s cubic-bezier(.2,1,.3,1) backwards;
+      animation-delay: calc(var(--i) * 70ms + 200ms);
+    }
+    #one-orbit .oo-col--left .oo-pill { flex-direction: row-reverse; text-align: right; padding-left: 1.75rem; --dir: 1; }
+    #one-orbit .oo-col--right .oo-pill { padding-right: 1.75rem; --dir: -1; }
+    /* Top and bottom pills tuck in toward the round disc. */
+    #one-orbit .oo-col--left .oo-pill[data-row="0"], #one-orbit .oo-col--left .oo-pill[data-row="3"] { translate: var(--tuck-x) 0; }
+    #one-orbit .oo-col--right .oo-pill[data-row="0"], #one-orbit .oo-col--right .oo-pill[data-row="3"] { translate: calc(var(--tuck-x) * -1) 0; }
+
+    #one-orbit .oo-pill::after { /* shine sweep on hover */
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / .85) 50%, transparent 65%);
+      transform: translateX(-120%); transition: transform 0s;
+    }
+    #one-orbit .oo-icon {
+      flex: none; position: relative;
+      width: clamp(64px, 6.4vw, 84px); aspect-ratio: 1; border-radius: 50%;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--pi) 55%, #fff), var(--pi) 70%);
+      box-shadow: 0 8px 20px -8px var(--pc), inset 0 2px 0 rgb(255 255 255 / .6);
+      color: var(--oo-ink);
+      transition: transform .45s cubic-bezier(.2,1.5,.4,1), box-shadow .35s;
+    }
+    #one-orbit .oo-icon svg { width: 52%; height: auto; }
+    #one-orbit .oo-icon::before { /* pulse ring when active */
+      content: ""; position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid var(--pc); opacity: 0;
+    }
+    #one-orbit .oo-text { display: grid; gap: .1rem; min-width: 0; }
+    #one-orbit .oo-name { font-weight: 800; font-size: clamp(1.05rem, 1.65vw, 1.4rem); line-height: 1.15; letter-spacing: -.015em; }
+    #one-orbit .oo-sub { font-weight: 500; font-size: clamp(.92rem, 1.35vw, 1.15rem); color: var(--oo-ink); opacity: .85; }
+
+    #one-orbit .oo-pill:hover, #one-orbit .oo-pill:focus-visible, #one-orbit .oo-pill.active {
+      transform: translate(calc(var(--dir) * 6px), -3px);
+      border-color: var(--pc);
+      box-shadow: 0 18px 40px -14px var(--pc), 0 0 0 4px color-mix(in srgb, var(--pc) 16%, transparent), inset 0 1px 0 #fff;
+    }
+    #one-orbit .oo-pill:hover::after { transform: translateX(120%); transition: transform .8s ease; }
+    #one-orbit .oo-pill:hover .oo-icon, #one-orbit .oo-pill.active .oo-icon { transform: scale(1.08) rotate(calc(var(--dir) * -8deg)); }
+    #one-orbit .oo-pill.active .oo-icon::before { animation: oo-ripple 1.8s ease-out infinite; }
+    #one-orbit .oo-pill:focus-visible { outline: 3px solid var(--oo-ink); outline-offset: 4px; }
+    #one-orbit .is-active .oo-pill:not(.active):not(:hover) { opacity: .72; }
+
+    /* ---------- Center disc ---------- */
+    #one-orbit .oo-hub {
+      position: relative; z-index: 2;
+      width: clamp(240px, 27vw, 340px); aspect-ratio: 1;
+      display: grid; place-items: center;
+    }
+    #one-orbit .oo-halo { position: absolute; inset: -14%; width: 128%; height: 128%; overflow: visible; pointer-events: none; }
+    #one-orbit .oo-halo circle { fill: none; transform-origin: 50% 50%; transform-box: view-box; transition: stroke .5s; }
+    #one-orbit .oo-halo .h1 { stroke: color-mix(in srgb, var(--c) 35%, transparent); stroke-width: .4; }
+    #one-orbit .oo-halo .h2 { stroke: color-mix(in srgb, var(--c) 55%, transparent); stroke-width: .5; stroke-dasharray: .6 2.4; animation: oo-spin 60s linear infinite; }
+    #one-orbit .oo-halo .h3 { stroke: var(--c); stroke-width: .9; stroke-linecap: round; stroke-dasharray: 18 300; animation: oo-spin 9s linear infinite; opacity: .9; }
+    #one-orbit .oo-halo .h4 { stroke: var(--oo-glow); stroke-width: .7; stroke-linecap: round; stroke-dasharray: 10 300; animation: oo-spin 14s linear infinite reverse; opacity: .6; }
+
+    #one-orbit .oo-disc {
+      position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+      background: radial-gradient(circle at 50% 35%, #0a2d6e, var(--oo-navy) 62%, #020b24);
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--c) 70%, #fff),
+        0 0 0 9px color-mix(in srgb, var(--c) 18%, transparent),
+        0 0 50px 4px color-mix(in srgb, var(--c) 45%, transparent),
+        0 30px 60px -20px rgb(4 23 61 / .6);
+      transition: box-shadow .5s, transform .3s ease-out;
+      transform: perspective(800px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg));
+    }
+    #one-orbit .oo-globe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #one-orbit .oo-globe .gd { fill: #8fe3ff; animation: oo-twinkle 3s ease-in-out infinite; }
+    #one-orbit .oo-logo { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; padding-bottom: 14%; color: #fff; }
+    #one-orbit .oo-logo svg { width: 64%; height: auto; overflow: visible; }
+    #one-orbit .oo-disc img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; margin: 0; object-fit: cover; }
+    #one-orbit .has-image .oo-logo, #one-orbit .has-image .oo-globe { display: none; }
+
+    /* ---------- Connectors ---------- */
+    #one-orbit .oo-link { fill: none; stroke: var(--lc); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 0 6; opacity: .75; transition: opacity .3s, stroke-width .3s; }
+    #one-orbit .oo-link.on { opacity: 1; stroke-width: 3; animation: oo-flow .6s linear infinite; }
+    #one-orbit .oo-end { fill: var(--lc); stroke: #fff; stroke-width: 2; }
+    #one-orbit .oo-spark { fill: #fff; stroke: var(--lc); stroke-width: 3; opacity: 0; }
+
+    /* ---------- Description card ---------- */
+    #one-orbit .oo-detail { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s cubic-bezier(.2,.7,.2,1); width: min(100%, 760px); justify-self: center; }
+    #one-orbit .oo-detail.open { grid-template-rows: 1fr; }
+    #one-orbit .oo-clip { overflow: hidden; min-height: 0; padding: 4px 24px 32px; margin: -4px -24px -32px; }
+    #one-orbit .oo-stack { display: grid; align-items: start; transition: height .4s cubic-bezier(.2,.7,.2,1); }
+    #one-orbit .oo-card {
+      --pc: #2fb8ff; --pt: #dcf4fd;
+      grid-area: 1 / 1;
+      position: relative; overflow: hidden;
+      background: var(--oo-surface);
+      border: 1px solid var(--oo-line);
+      border-radius: 18px;
+      box-shadow: 0 16px 40px -20px rgb(11 31 75 / .35);
+      padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 1.75rem) calc(clamp(1.25rem, 3vw, 2rem) + 4px);
+      display: grid; gap: .65rem; justify-items: start; align-content: start;
+      opacity: 0; visibility: hidden; transform: translateY(10px);
+      transition: opacity .3s, transform .45s cubic-bezier(.2,.7,.2,1), visibility 0s .3s;
+    }
+    #one-orbit .oo-card.show { opacity: 1; visibility: visible; transform: none; transition: opacity .3s, transform .45s cubic-bezier(.2,.7,.2,1), visibility 0s; }
+    #one-orbit .oo-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--pc); }
+    #one-orbit .oo-card::after {
+      content: ""; position: absolute; top: -70px; right: -70px; width: 170px; height: 170px; border-radius: 50%;
+      background: var(--pt); opacity: .7; z-index: 0;
+    }
+    #one-orbit .oo-card > * { position: relative; z-index: 1; }
+    #one-orbit .oo-tag {
+      display: inline-block; padding: .45em 1em; border-radius: 99px;
+      background: var(--pt); color: var(--oo-ink);
+      font: 800 .72rem/1 var(--oo-font); letter-spacing: .06em; text-transform: uppercase;
+    }
+    #one-orbit .oo-card h3 {
+      margin: .15rem 0 0; padding: 0; color: var(--oo-ink); text-transform: none; letter-spacing: -.015em;
+      font: 800 clamp(1.3rem, 2.6vw, 1.7rem)/1.2 var(--oo-font); text-wrap: balance;
+    }
+    #one-orbit .oo-card p { margin: 0; padding: 0; color: var(--oo-muted); font-size: 1.05rem; max-width: 60ch; }
+    #one-orbit .oo-foot { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; justify-content: space-between; width: 100%; padding-top: .5rem; }
+    #one-orbit .oo-nav { display: flex; gap: .5rem; margin-left: auto; }
+    #one-orbit .oo-btn {
+      all: unset; box-sizing: border-box; display: inline-block; cursor: pointer;
+      font: 700 .9rem/1 var(--oo-font); color: var(--oo-ink);
+      border: 1.5px solid var(--oo-line); background: var(--oo-surface);
+      border-radius: 99px; padding: .75em 1.15em; text-decoration: none;
+      transition: border-color .2s, transform .2s, background .2s;
+    }
+    #one-orbit .oo-btn:hover { border-color: var(--pc); transform: translateY(-2px); color: var(--oo-ink); text-decoration: none; }
+    #one-orbit .oo-btn:focus-visible, #one-orbit .oo-close:focus-visible { outline: 3px solid var(--pc); outline-offset: 2px; }
+    #one-orbit .oo-btn--fill, #one-orbit .oo-btn--fill:hover { background: var(--pc); border-color: var(--pc); color: #fff; }
+    #one-orbit .oo-close {
+      all: unset; box-sizing: border-box; position: absolute; top: .8rem; right: .8rem; z-index: 2; width: 36px; height: 36px; border-radius: 50%;
+      display: grid; place-items: center; cursor: pointer; color: var(--oo-ink); font: 400 1.5rem/1 var(--oo-font);
+      background: rgb(255 255 255 / .7); transition: background .2s;
+    }
+    #one-orbit .oo-close:hover { background: #fff; }
+
+    @keyframes oo-spin { to { transform: rotate(360deg); } }
+    @keyframes oo-flow { to { stroke-dashoffset: -12; } }
+    @keyframes oo-ripple { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.45); opacity: 0; } }
+    @keyframes oo-in { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 30px)) scale(.96); } }
+    @keyframes oo-twinkle { 50% { opacity: .35; } }
+
+    /* ---------- Phones and narrow tablets: stack, open descriptions in place ---------- */
+    /* ---------- Home page teaser additions ---------- */
+    /* The center disc links to the ONE Platform page. */
+    #one-orbit a.oo-hub { color: #fff; text-decoration: none; cursor: pointer; border-radius: 50%; }
+    #one-orbit a.oo-hub:focus-visible { outline: 3px solid var(--c); outline-offset: 22px; }
+    #one-orbit .oo-disc { transition: box-shadow .5s, transform .3s ease-out, scale .35s cubic-bezier(.2,1.3,.4,1); }
+    #one-orbit a.oo-hub:hover .oo-disc { scale: 1.04; }
+    #one-orbit .oo-explore {
+      position: absolute; left: 50%; bottom: 13%; translate: -50% 8px;
+      padding: .55em 1.05em; border-radius: 99px; white-space: nowrap;
+      background: #fff; color: var(--oo-navy);
+      font: 800 clamp(.72rem, 1vw, .85rem)/1 var(--oo-font); letter-spacing: .02em;
+      box-shadow: 0 8px 22px -6px rgb(0 0 0 / .45);
+      opacity: 0; transition: opacity .3s, translate .35s cubic-bezier(.2,1.3,.4,1);
+    }
+    #one-orbit a.oo-hub:hover .oo-explore, #one-orbit a.oo-hub:focus-visible .oo-explore { opacity: 1; translate: -50% 0; }
+    @media (hover: none) { #one-orbit .oo-explore { opacity: 1; translate: -50% 0; } }
+    /* Entrance plays when the section scrolls into view. */
+    #one-orbit:not(.oo-seen) .oo-pill { animation-play-state: paused; }
+    /* The intro paragraph above already explains how to use it. */
+    #one-orbit .oo-hint { display: none !important; }
+
+    @media (max-width: 860px) {
+      #one-orbit .oo-stage { grid-template-columns: 1fr; row-gap: 1rem; justify-items: center; }
+      #one-orbit .oo-hub { order: -1; width: min(66vw, 270px); margin-bottom: 1.75rem; }
+      #one-orbit .oo-col { width: min(100%, 30rem); justify-items: stretch; }
+      #one-orbit .oo-links { display: none; }
+      #one-orbit button.oo-pill { width: 100%; translate: none !important; min-height: 76px; }
+      #one-orbit .oo-col--left .oo-pill { flex-direction: row; text-align: left; padding-left: .55rem; padding-right: 1.5rem; }
+      #one-orbit .oo-pill:hover, #one-orbit .oo-pill:focus-visible, #one-orbit .oo-pill.active { transform: translateY(-2px); }
+      #one-orbit .oo-icon { width: 52px; }
+      #one-orbit button.oo-pill { min-height: 66px; padding-block: .45rem; }
+      #one-orbit .oo-col { gap: .75rem; }
+      #one-orbit .oo-name { font-size: 1.02rem; }
+      #one-orbit .oo-sub { font-size: .9rem; }
+      #one-orbit .oo-col .oo-detail { width: 100%; }
+      #one-orbit .oo-col .oo-clip { padding-bottom: 12px; margin-bottom: -12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #one-orbit *, #one-orbit *::before, #one-orbit *::after { animation: none !important; transition-duration: .01ms !important; }
+      #one-orbit .oo-disc { transform: none !important; }
+    }
+    </style>
+
+    <div class="one-orbit" id="one-orbit">
+      <div class="oo-wrap">
+        <div class="oo-stage" id="oo-stage">
+          <svg class="oo-links" id="oo-links" aria-hidden="true"></svg>
+          <div class="oo-col oo-col--left" id="oo-left"></div>
+          <a class="oo-hub" id="oo-hub" href="/one-platform/" aria-label="Explore ONE Platform">
+            <svg class="oo-halo" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="h1" cx="50" cy="50" r="47"></circle>
+              <circle class="h2" cx="50" cy="50" r="44"></circle>
+              <circle class="h3" cx="50" cy="50" r="47"></circle>
+              <circle class="h4" cx="50" cy="50" r="44"></circle>
+            </svg>
+            <div class="oo-disc" id="oo-disc">
+              <svg class="oo-globe" id="oo-globe" viewBox="0 0 200 200" aria-hidden="true"></svg>
+              <div class="oo-logo" aria-hidden="true">
+                <svg viewBox="0 0 250 120" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="oo-play" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fd3ff"></stop><stop offset="1" stop-color="#1a8bf0"></stop></linearGradient>
+                  </defs>
+                  <circle cx="41" cy="45" r="31" fill="none" stroke="#fff" stroke-width="17"></circle>
+                  <path d="M34 31 L56 45 L34 59 Z" fill="url(#oo-play)" stroke="url(#oo-play)" stroke-width="4" stroke-linejoin="round"></path>
+                  <text x="83" y="77" fill="#fff" font-family="Plus Jakarta Sans, Segoe UI, system-ui, sans-serif" font-weight="800" font-size="88" letter-spacing="-4">NE</text>
+                  <text x="125" y="114" fill="#fff" text-anchor="middle" font-family="Plus Jakarta Sans, Segoe UI, system-ui, sans-serif" font-weight="700" font-size="24" letter-spacing="7.5">PLATFORM</text>
+                </svg>
+              </div>
+              <span class="oo-explore" aria-hidden="true">Explore ONE Platform &rarr;</span>
+            </div>
+          </a>
+          <div class="oo-col oo-col--right" id="oo-right"></div>
+        </div>
+
+        <p class="oo-hint" id="oo-hint">Hover over or tap an area for a preview.</p>
+
+        <div class="oo-detail" id="oo-detail" aria-live="polite">
+          <div class="oo-clip"><div class="oo-stack" id="oo-stack"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function () {
+      /* ======================================================================
+         EDIT HERE
+         CENTER_IMAGE: optional URL of an image that replaces the built-in
+           ONE Platform logo and globe in the center. Leave "" to keep the built-in one.
+         AREAS: 8 items. The first 4 run down the LEFT side, the last 4 run down
+           the RIGHT side, top to bottom.
+           name   = bold label on the pill (also the small tag on the card)
+           sub    = second line on the pill (also the card title)
+           text   = description shown in the card
+           link   = button on the card. MORE (set just below) sends people to the
+                    ONE Platform page; use null for no button.
+           color  = connector and accent color, tint = pill background, iconBg = icon circle
+         ====================================================================== */
+      var CENTER_IMAGE = "";
+      var CENTER_ALT = "ONE Platform";
+
+      var MORE = { text: "Learn more about ONE Platform \u2192", href: "/one-platform/" };
+
+      var AREAS = [
+        { name: "Young People", sub: "Real Answers", icon: "people",
+          text: "Truthful, factual and age-appropriate drug education resources designed for young people.",
+          color: "#1ea7ec", tint: "#dcf4fd", iconBg: "#7cc8f0", link: MORE },
+        { name: "Parents & Families", sub: "Parent Education", icon: "family",
+          text: "Resources being developed to help families understand drug issues and communicate more effectively.",
+          color: "#4cbf3c", tint: "#e6f8e2", iconBg: "#a5e095", link: MORE },
+        { name: "Schools & Educators", sub: "Curriculum & Tools", icon: "cap",
+          text: "Educational resources, classroom tools and training for educators and schools.",
+          color: "#f5a524", tint: "#fcedcc", iconBg: "#fbc85a", link: MORE },
+        { name: "Courses & Certification", sub: "Professional Training", icon: "certificate",
+          text: "Professional education, live training and certification programs for educators and community professionals.",
+          color: "#9b6cf0", tint: "#ebe6fd", iconBg: "#c9adfa", link: MORE },
+        { name: "Courts & Referrals", sub: "First-Time Offender", icon: "scales",
+          text: "Course infrastructure designed to support future referrals, enrollment and completion.",
+          color: "#ef5d74", tint: "#fde6e9", iconBg: "#fb9fac", link: MORE },
+        { name: "Employers", sub: "Workplace Education", icon: "building",
+          text: "Workplace drug education resources and organizational training currently in development.",
+          color: "#2f8ff0", tint: "#ddedfc", iconBg: "#91cefc", link: MORE },
+        { name: "Research & Content", sub: "The Real Cost", icon: "bars",
+          text: "Research and publication resources being developed to make complex drug information easier to understand and use.",
+          color: "#22b453", tint: "#e6f8e9", iconBg: "#8fe0a0", link: MORE },
+        { name: "Measurement & Analytics", sub: "Track What Works", icon: "trend",
+          text: "Future systems planned to support participation data, surveys and responsible program measurement.",
+          color: "#9b6cf0", tint: "#ebe0fd", iconBg: "#c8a1fb", link: MORE }
+      ];
+
+      /* Icons available: people, family, cap, certificate, scales, building, bars, trend */
+      var ICONS = {
+        people: '<g fill="currentColor" stroke="none"><circle cx="12" cy="7.2" r="3.3"/><path d="M5.6 19.6c0-3.7 2.9-6.6 6.4-6.6s6.4 2.9 6.4 6.6z"/><circle cx="4.9" cy="9.3" r="2.4"/><circle cx="19.1" cy="9.3" r="2.4"/><path d="M.6 18.6c0-2.7 1.9-4.7 4.3-4.7 1 0 1.9.3 2.6.9a8.2 8.2 0 0 0-2.6 3.8z"/><path d="M23.4 18.6c0-2.7-1.9-4.7-4.3-4.7-1 0-1.9.3-2.6.9a8.2 8.2 0 0 1 2.6 3.8z"/></g>',
+        family: '<g fill="currentColor" stroke="none"><circle cx="6.5" cy="3.9" r="2.3"/><path d="M4 7.4h5l1 7H8.6V22H4.4v-7.6H3z"/><circle cx="13.3" cy="6.6" r="1.9"/><path d="M11.4 9.6h3.8l.8 5.2h-1.1V22h-3.2v-7.2h-1.1z"/><circle cx="19.4" cy="10.4" r="1.6"/><path d="M17.8 12.9h3.2l.6 4h-.9V22h-2.6v-5.1h-.9z"/></g>',
+        cap: '<g fill="currentColor" stroke="none"><path d="M12 3.5 .8 8.8 12 14.1l9.2-4.3v5.6h1.7V8.8z"/><path d="M5.4 12.2v4.3c0 1.9 3 3.6 6.6 3.6s6.6-1.7 6.6-3.6v-4.3L12 15.4z"/><circle cx="22" cy="17" r="1.3"/></g>',
+        certificate: '<path d="M14 2.8H6.2a1.4 1.4 0 0 0-1.4 1.4v15.6a1.4 1.4 0 0 0 1.4 1.4H12"/><path d="M14 2.8 19.2 8v4"/><path d="M14 2.8V8h5.2"/><path d="M8 11h7.5M8 14h5M8 17h3"/><circle cx="17.2" cy="16.4" r="2.8" fill="currentColor"/><path d="m15.6 18.8-.8 3.6 2.4-1.2 2.4 1.2-.8-3.6" fill="currentColor"/>',
+        scales: '<path d="M12 3.5v16.5"/><path d="M7 21h10"/><path d="M4 6.5c2.7.9 5.3.9 8 0s5.3-.9 8 0"/><circle cx="12" cy="3.5" r="1.3" fill="currentColor"/><path d="M4 6.5 1.3 13h5.4zM20 6.5 17.3 13h5.4z"/><path d="M1.3 13a2.7 2.7 0 0 0 5.4 0zM17.3 13a2.7 2.7 0 0 0 5.4 0z" fill="currentColor"/>',
+        building: '<g fill="currentColor" stroke="none"><path d="M4.5 2.5h10.5v19H4.5z"/><path d="M15.8 8.5h4.2v13h-4.2z"/><path d="M2.5 20.6h19v1.4h-19z"/></g><g fill="#fff" stroke="none" opacity=".9"><rect x="6.5" y="5" width="2.2" height="2.2"/><rect x="10.8" y="5" width="2.2" height="2.2"/><rect x="6.5" y="9" width="2.2" height="2.2"/><rect x="10.8" y="9" width="2.2" height="2.2"/><rect x="6.5" y="13" width="2.2" height="2.2"/><rect x="10.8" y="13" width="2.2" height="2.2"/><rect x="17" y="11" width="1.8" height="1.8"/><rect x="17" y="14.6" width="1.8" height="1.8"/><rect x="8.6" y="17.2" width="2.4" height="3.4"/></g>',
+        bars: '<g fill="currentColor" stroke="none"><rect x="3.6" y="13" width="4" height="6.6" rx=".8"/><rect x="10" y="8.6" width="4" height="11" rx=".8"/><rect x="16.4" y="3.6" width="4" height="16" rx=".8"/></g><path d="M2.4 21.4h19.2"/>',
+        trend: '<path d="M3 17.5 8.6 11l4 4L20.4 6"/><path d="M15 5.6h5.6v5.6"/><path d="M2.6 21.2h18.8"/>'
+      };
+
+      /* ====================================================================== */
+
+      function init() {
+        var root = document.getElementById("one-orbit");
+        if (!root || root.dataset.ready) return;
+        root.dataset.ready = "1";
+
+        // Play the entrance animation when the section scrolls into view.
+        if ("IntersectionObserver" in window) {
+          var io = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) { root.classList.add("oo-seen"); io.disconnect(); }
+          }, { threshold: .2 });
+          io.observe(root);
+        } else root.classList.add("oo-seen");
+
+        var stage = document.getElementById("oo-stage");
+        var cols = [document.getElementById("oo-left"), document.getElementById("oo-right")];
+        var hub = document.getElementById("oo-hub");
+        var disc = document.getElementById("oo-disc");
+        var links = document.getElementById("oo-links");
+        var detail = document.getElementById("oo-detail");
+        var detailHome = detail.parentNode;
+        var stack = document.getElementById("oo-stack");
+        var hint = document.getElementById("oo-hint");
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var canHover = window.matchMedia("(hover: hover)").matches;
+        var narrow = window.matchMedia("(max-width: 860px)");
+        var NS = "http://www.w3.org/2000/svg";
+        var active = null, hoverTimer = null, sparkRaf = null;
+
+        function svgIcon(name) {
+          return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || "") + "</svg>";
+        }
+        function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+        function el(tag, attrs) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+        if (CENTER_IMAGE) {
+          var img = new Image();
+          img.src = CENTER_IMAGE; img.alt = CENTER_ALT;
+          disc.appendChild(img);
+          hub.classList.add("has-image");
+        }
+
+        // Globe: a planet rising from the bottom of the disc, with a twinkling network on it.
+        (function drawGlobe() {
+          var g = document.getElementById("oo-globe");
+          g.innerHTML =
+            '<defs><radialGradient id="oo-planet" cx="50%" cy="0%" r="75%"><stop offset="0" stop-color="#2fb8ff" stop-opacity=".9"/><stop offset=".35" stop-color="#0b5fc0" stop-opacity=".55"/><stop offset="1" stop-color="#04173d" stop-opacity="0"/></radialGradient>' +
+            '<clipPath id="oo-clip"><circle cx="100" cy="245" r="105"/></clipPath></defs>' +
+            '<circle cx="100" cy="245" r="105" fill="url(#oo-planet)"/>' +
+            '<circle cx="100" cy="245" r="105" fill="none" stroke="#7fdcff" stroke-width="1.2" opacity=".9"/>';
+          var grid = el("g", { "clip-path": "url(#oo-clip)", fill: "none", stroke: "#5fc8ff", "stroke-width": ".35", opacity: ".45" });
+          [30, 55, 80].forEach(function (rx) { grid.appendChild(el("ellipse", { cx: 100, cy: 245, rx: rx, ry: 105 })); });
+          [150, 160, 172].forEach(function (y) { grid.appendChild(el("line", { x1: 0, y1: y, x2: 200, y2: y })); });
+          g.appendChild(grid);
+          var seed = 7; function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+          var pts = [];
+          while (pts.length < 26) {
+            var x = 30 + rnd() * 140, y = 143 + rnd() * 50;
+            if (Math.hypot(x - 100, y - 245) < 103) pts.push([x, y]);
+          }
+          var net = el("g", { stroke: "#8fe3ff", "stroke-width": ".4", opacity: ".55" });
+          pts.forEach(function (p, i) {
+            pts.slice(i + 1).forEach(function (q) {
+              if (Math.hypot(p[0] - q[0], p[1] - q[1]) < 22) net.appendChild(el("line", { x1: p[0], y1: p[1], x2: q[0], y2: q[1] }));
+            });
+          });
+          g.appendChild(net);
+          pts.forEach(function (p, i) {
+            var d = el("circle", { cx: p[0], cy: p[1], r: i % 4 ? .9 : 1.5, class: "gd" });
+            d.style.animationDelay = (i * 0.23 % 3).toFixed(2) + "s";
+            g.appendChild(d);
+          });
+        })();
+
+        // Pills and their description cards
+        var pills = [], cards = [];
+        AREAS.forEach(function (a, i) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "oo-pill";
+          b.dataset.row = i % 4;
+          b.style.cssText = "--pc:" + a.color + ";--pt:" + a.tint + ";--pi:" + a.iconBg + ";--i:" + i;
+          b.setAttribute("aria-expanded", "false");
+          b.setAttribute("aria-controls", "oo-detail");
+          b.innerHTML = '<span class="oo-icon">' + svgIcon(a.icon) + '</span><span class="oo-text"><span class="oo-name">' + esc(a.name) + '</span><span class="oo-sub">' + esc(a.sub) + "</span></span>";
+          cols[i < 4 ? 0 : 1].appendChild(b);
+          pills.push(b);
+
+          var c = document.createElement("article");
+          c.className = "oo-card";
+          c.style.cssText = "--pc:" + a.color + ";--pt:" + a.tint;
+          c.setAttribute("aria-label", a.name);
+          c.innerHTML =
+            '<button type="button" class="oo-close" data-close aria-label="Close">&times;</button>' +
+            '<span class="oo-tag">' + esc(a.name) + "</span>" +
+            "<h3>" + esc(a.sub) + "</h3>" +
+            "<p>" + esc(a.text) + "</p>" +
+            '<div class="oo-foot">' +
+              (a.link && a.link.href ? '<a class="oo-btn oo-btn--fill" href="' + esc(a.link.href) + '">' + esc(a.link.text || "Learn more") + "</a>" : "") +
+              '<div class="oo-nav"><button type="button" class="oo-btn" data-step="-1" aria-label="Previous area">&larr; Prev</button>' +
+              '<button type="button" class="oo-btn" data-step="1" aria-label="Next area">Next &rarr;</button></div>' +
+            "</div>";
+          stack.appendChild(c);
+          cards.push(c);
+        });
+
+        // Connectors: dotted elbow lines from each pill to a point on the disc edge.
+        var ANGLES = [-100, 200, 160, 100, -80, -20, 20, 80];
+        var paths = [], sparks = [];
+        function drawLinks() {
+          links.innerHTML = "";
+          paths = []; sparks = [];
+          if (narrow.matches) return;
+          var s = stage.getBoundingClientRect();
+          var d = disc.getBoundingClientRect();
+          var cx = d.left + d.width / 2 - s.left, cy = d.top + d.height / 2 - s.top, r = d.width / 2 + 14;
+          AREAS.forEach(function (a, i) {
+            var p = pills[i].getBoundingClientRect();
+            var left = i < 4;
+            var ax = (left ? p.right + 12 : p.left - 12) - s.left, ay = p.top + p.height / 2 - s.top;
+            var t = ANGLES[i] * Math.PI / 180;
+            var bx = cx + r * Math.cos(t), by = cy + r * Math.sin(t);
+            var dPath;
+            if (Math.abs(by - ay) > 40) {
+              var rad = 14, sy = by > ay ? 1 : -1, sx = bx > ax ? 1 : -1;
+              dPath = "M" + ax + " " + ay + " H" + (bx - sx * rad) + " Q" + bx + " " + ay + " " + bx + " " + (ay + sy * rad) + " V" + by;
+            } else {
+              dPath = "M" + ax + " " + ay + " H" + ((ax + bx) / 2) + " L" + bx + " " + by;
+            }
+            var g = el("g", {}); g.style.setProperty("--lc", a.color);
+            var path = el("path", { d: dPath, class: "oo-link" + (i === active ? " on" : "") });
+            g.appendChild(path);
+            g.appendChild(el("circle", { cx: ax, cy: ay, r: 5, class: "oo-end" }));
+            g.appendChild(el("circle", { cx: bx, cy: by, r: 5, class: "oo-end" }));
+            var sp = el("circle", { r: 5, class: "oo-spark" });
+            g.appendChild(sp);
+            links.appendChild(g);
+            paths.push(path); sparks.push(sp);
+          });
+          if (active !== null) runSpark(active);
+        }
+
+        // A light that travels along the active connector from the disc out to the pill.
+        function runSpark(i) {
+          cancelAnimationFrame(sparkRaf);
+          sparks.forEach(function (s) { s.style.opacity = "0"; });
+          if (!paths[i] || reduceMotion) return;
+          var path = paths[i], sp = sparks[i], len = path.getTotalLength(), t0 = performance.now();
+          (function tick(now) {
+            var p = ((now - t0) % 1600) / 1600;
+            var e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+            var pt = path.getPointAtLength(len * (1 - e));
+            sp.setAttribute("cx", pt.x); sp.setAttribute("cy", pt.y);
+            sp.style.opacity = String(Math.sin(p * Math.PI));
+            sparkRaf = requestAnimationFrame(tick);
+          })(t0);
+        }
+
+        // The card area takes the height of the card being shown.
+        function fitStack() {
+          if (active !== null) stack.style.height = cards[active].offsetHeight + "px";
+        }
+
+        // On phones the description opens directly under the tapped pill.
+        function placeDetail() {
+          if (narrow.matches && active !== null) pills[active].after(detail);
+          else if (detail.parentNode !== detailHome) detailHome.appendChild(detail);
+        }
+
+        function select(i) {
+          if (i === active) return;
+          var moving = narrow.matches && active !== null && i !== null;
+          active = i;
+          pills.forEach(function (p, k) {
+            p.classList.toggle("active", k === i);
+            p.setAttribute("aria-expanded", String(k === i));
+            cards[k].classList.toggle("show", k === i);
+            if (paths[k]) paths[k].classList.toggle("on", k === i);
+          });
+          root.classList.toggle("is-active", i !== null);
+          hint.hidden = i !== null;
+          if (i !== null) {
+            root.style.setProperty("--c", AREAS[i].color);
+            runSpark(i);
+          } else {
+            cancelAnimationFrame(sparkRaf);
+            sparks.forEach(function (s) { s.style.opacity = "0"; });
+          }
+          if (moving) { detail.classList.remove("open"); placeDetail(); void detail.offsetWidth; }
+          else placeDetail();
+          fitStack();
+          detail.classList.toggle("open", i !== null);
+          if (narrow.matches && i !== null) {
+            var target = pills[i];
+            setTimeout(function () {
+              var r = target.getBoundingClientRect();
+              if (r.top < 0 || r.top > window.innerHeight * .45) window.scrollBy({ top: r.top - 90, behavior: reduceMotion ? "auto" : "smooth" });
+            }, 80);
+          }
+        }
+
+        pills.forEach(function (p, i) {
+          // Hover opens an area after a short pause, so crossing other pills
+          // doesn't switch it. It stays open until another area is chosen.
+          p.addEventListener("pointerenter", function (e) {
+            if (e.pointerType !== "mouse" || narrow.matches) return;
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(function () { select(i); }, active === null ? 0 : 140);
+          });
+          p.addEventListener("pointerleave", function () { clearTimeout(hoverTimer); });
+          p.addEventListener("click", function () {
+            clearTimeout(hoverTimer);
+            // Tapping the open area again closes it (phones and touch screens).
+            select(active === i && (!canHover || narrow.matches) ? null : i);
+          });
+          p.addEventListener("keydown", function (e) {
+            var k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+            if (k) { e.preventDefault(); pills[(i + k + pills.length) % pills.length].focus(); }
+          });
+        });
+
+        stack.addEventListener("click", function (e) {
+          if (e.target.closest("[data-close]")) {
+            var was = active; select(null);
+            if (was !== null) pills[was].focus({ preventScroll: true });
+            return;
+          }
+          var s = e.target.closest("[data-step]");
+          if (s) select((active + Number(s.dataset.step) + AREAS.length) % AREAS.length);
+        });
+        root.addEventListener("keydown", function (e) { if (e.key === "Escape") select(null); });
+
+        // The disc tilts gently toward the cursor.
+        stage.addEventListener("pointermove", function (e) {
+          if (e.pointerType !== "mouse" || reduceMotion) return;
+          var r = disc.getBoundingClientRect();
+          var px = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 2)));
+          var py = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 2)));
+          disc.style.setProperty("--rx", (px * 14).toFixed(2) + "deg");
+          disc.style.setProperty("--ry", (-py * 14).toFixed(2) + "deg");
+        });
+        stage.addEventListener("pointerleave", function () { disc.style.setProperty("--rx", "0deg"); disc.style.setProperty("--ry", "0deg"); });
+
+        // Redraw connectors whenever the layout changes (resize, fonts loading, entrance animation ending).
+        var raf = null;
+        function schedule() { cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { drawLinks(); fitStack(); }); }
+        if (window.ResizeObserver) new ResizeObserver(schedule).observe(stage);
+        window.addEventListener("resize", schedule);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+        pills[pills.length - 1].addEventListener("animationend", schedule);
+        var onNarrow = function () { placeDetail(); schedule(); };
+        if (narrow.addEventListener) narrow.addEventListener("change", onNarrow); else narrow.addListener(onNarrow);
+        drawLinks();
+      }
+
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+      else init();
+    })();
+    </script>
+
+
+    <div class="dea-one-actions">
+
+      <a class="dea-btn dea-btn-gold"
+         href="/one-platform/">
+        Explore ONE Platform →
+      </a>
+
+      <a class="dea-text-link"
+         href="/founding-partner/">
+        Become a Founding Partner →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- THE REAL COST -->
+
+<section class="dea-section dea-real-cost">
+
+  <div class="dea-wrap">
+
+    <div class="dea-real-cost-grid">
+
+      <div>
+
+        <div class="dea-kicker">
+          Research &amp; publications
+        </div>
+
+        <h2>
+          The Real Cost
+        </h2>
+
+        <p>
+          The Real Cost publication division is in development as a
+          Drug Educators Alliance initiative focused on source-based drug
+          information for educators, parents, communities, policymakers
+          and the public.
+        </p>
+
+        <p>
+          Publications are being developed around specific research questions,
+          original sources and clearly identified findings.
+        </p>
+
+        <a class="dea-btn dea-btn-gold"
+           href="/real-cost-publications/">
+          Explore The Real Cost →
+        </a>
+
+      </div>
+
+
+      <div class="dea-covers">
+
+        <a class="dea-cover"
+           href="/real-cost-publications/">
+
+          <img
+            src="/wp-content/uploads/2026/09/THC-and-the-Adolescent-Brain.png"
+            alt="The Real Cost publication artwork about THC and the adolescent brain"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        </a>
+
+        <a class="dea-cover"
+           href="/real-cost-publications/">
+
+          <img
+            src="/wp-content/uploads/2026/09/Fentanyl-Warning_-Fake-Pills-Real-Danger.png"
+            alt="The Real Cost publication artwork about fentanyl and fake pills"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        </a>
+
+        <a class="dea-cover"
+           href="/real-cost-publications/">
+
+          <img
+            src="/wp-content/uploads/2026/09/Vaping-Devices-and-Inflamed-Lungs.png"
+            alt="The Real Cost publication artwork about vaping"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        </a>
+
+        <a class="dea-cover"
+           href="/real-cost-publications/">
+
+          <img
+            src="/wp-content/uploads/2026/09/Colorful-Pills-on-a-Reflective-Pharmacy-Surface-1.png"
+            alt="The Real Cost publication artwork about counterfeit pills"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REAL ANSWERS -->
+
+<section class="dea-section">
+
+  <div class="dea-wrap">
+
+    <div class="dea-answers-head">
+
+      <div>
+
+        <div class="dea-kicker">
+          Drug Information
+        </div>
+
+        <h2 class="dea-title">
+          Real questions about drugs. Clear, factual answers.
+        </h2>
+
+      </div>
+
+      <p class="dea-subtitle">
+        Explore straightforward drug information organized around the questions
+        parents, educators, young people and community leaders are actually asking.
+      </p>
+
+    </div>
+
+
+    <div class="dea-answer-grid">
+
+      <a class="dea-answer-card"
+         href="/drug-information/fentanyl/">
+
+        <img
+          src="/wp-content/uploads/2026/09/dea-real-answers-fentanyl.webp"
+          alt="Fentanyl pills and powder"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <strong>
+          Fentanyl →
+        </strong>
+
+      </a>
+
+
+      <a class="dea-answer-card"
+         href="/drug-information/marijuana-thc/">
+
+        <img
+          src="/wp-content/uploads/2026/09/dea-real-answers-marijuana-thc.webp"
+          alt="Marijuana and THC products"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <strong>
+          Marijuana &amp; THC →
+        </strong>
+
+      </a>
+
+
+      <a class="dea-answer-card"
+         href="/drug-information/vaping/">
+
+        <img
+          src="/wp-content/uploads/2026/09/dea-real-answers-vaping.webp"
+          alt="Vaping devices"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <strong>
+          Vaping →
+        </strong>
+
+      </a>
+
+
+      <a class="dea-answer-card"
+         href="/drug-information/prescription-drugs/">
+
+        <img
+          src="/wp-content/uploads/2026/09/dea-real-answers-prescription-drugs.webp"
+          alt="Prescription medications"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <strong>
+          Prescription Drugs →
+        </strong>
+
+      </a>
+
+
+      <a class="dea-answer-card"
+         href="/drug-information/alcohol/">
+
+        <img
+          src="/wp-content/uploads/2026/09/dea-real-answers-alcohol.webp"
+          alt="Alcoholic beverages"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <strong>
+          Alcohol →
+        </strong>
+
+      </a>
+
+
+      <a class="dea-answer-card"
+         href="/parents/">
+
+        <img
+          src="/wp-content/uploads/2026/09/dea-real-answers-talking-with-teens.webp"
+          alt="Parent having a supportive conversation with a teenager"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low">
+
+        <strong>
+          Talking With Teens →
+        </strong>
+
+      </a>
+
+    </div>
+
+
+    <div style="margin-top:28px;">
+
+      <a class="dea-btn"
+         href="/drug-information/">
+        Explore Drug Information →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- BOTTOM CTA -->
+
+<section class="dea-bottom-cta">
+
+  <img
+    class="dea-bottom-cta-bg"
+    src="/wp-content/uploads/2026/09/dea-homepage-cta-brighter-futures.webp"
+    alt=""
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low"
+    aria-hidden="true">
+
+  <div class="dea-wrap">
+
+    <div class="dea-kicker"
+         style="color:#9bdafa;">
+      Help expand drug education
+    </div>
+
+    <h2>
+      Help more people get the information before they need it the hard way.
+    </h2>
+
+    <p>
+      Support educational presentations, resources, research, publications,
+      youth initiatives and community drug education.
+    </p>
+
+    <div class="dea-bottom-actions">
+
+      <a class="dea-btn dea-btn-gold"
+         href="/donate/">
+        Donate
+      </a>
+
+      <a class="dea-btn dea-btn-outline"
+         href="/founding-partner/">
+        Become a Founding Partner
+      </a>
+
+      <a class="dea-btn dea-btn-outline"
+         href="/sponsor/">
+        Sponsor a Program
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>

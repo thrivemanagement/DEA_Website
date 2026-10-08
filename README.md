@@ -24,3 +24,9 @@ Everything editable is in the `EDIT HERE` section of the `<script>` at the botto
 The complete https://drugeducators.org/one-platform/ page with the interactive ecosystem diagram in the "Bringing It All Together" section, replacing the static ecosystem image and the 8 cards below it. Everything else on the page is unchanged.
 
 To install: edit the page with Elementor, open the existing HTML widget, select all of its code, and replace it with the full contents of this file. Then click **Update**.
+
+## Home page with ONE Platform teaser (`home-page-elementor.html`)
+
+The complete home page with a new "ONE Platform" section between "Programs, Training & Initiatives" and "The Real Cost". It uses the same interactive diagram, tuned as a teaser: every description card and the center disc link to `/one-platform/`, and the section ends with an "Explore ONE Platform" button.
+
+To install: edit the home page with Elementor, open the HTML widget, replace all of its code with the full contents of this file, and click **Update**.
