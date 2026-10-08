@@ -30,3 +30,5 @@ To install: edit the page with Elementor, open the existing HTML widget, select 
 The complete home page with a new "ONE Platform" section between "Programs, Training & Initiatives" and "The Real Cost". It uses the same interactive diagram, tuned as a teaser: every description card and the center disc link to `/one-platform/`, and the section ends with an "Explore ONE Platform" button.
 
 To install: edit the home page with Elementor, open the HTML widget, replace all of its code with the full contents of this file, and click **Update**.
+
+`home-page-elementor-compact.html` is the same page with the diagram's CSS and JavaScript minified (about 11 KB smaller), for when a hosting firewall rejects the larger save. Edit the readable files; regenerate the compact one from them.
