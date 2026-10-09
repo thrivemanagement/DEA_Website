@@ -162,7 +162,6 @@
 .dea-answer-card:focus-visible,
 .dea-build-card:focus-visible,
 .dea-text-link:focus-visible,
-.dea-video-play:focus-visible,
 .dea-logo-pause:focus-visible {
   outline: 3px solid var(--cyan-light);
   outline-offset: 4px;
@@ -223,8 +222,8 @@
   background:
     radial-gradient(
       circle at 88% 12%,
-      rgba(25,188,210,.20),
-      transparent 38%
+      rgba(25,188,210,.18),
+      transparent 34%
     ),
     linear-gradient(
       145deg,
@@ -234,12 +233,34 @@
     );
 }
 
-.dea-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0,1.05fr) minmax(0,1fr);
-  gap: 56px;
-  align-items: center;
-  padding: 80px 0 120px;
+/* Stage photo behind the hero on tablets and computers. Phones keep the
+   plain blue background, which loads faster and keeps the text readable. */
+@media (min-width:768px) {
+
+  .dea-hero {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5,42,72,.97) 0%,
+        rgba(5,42,72,.88) 40%,
+        rgba(5,42,72,.40) 68%,
+        rgba(5,42,72,.10) 100%
+      ),
+      url("/wp-content/uploads/2026/08/Wide-Auditorium-Stage.webp") center 72% / cover no-repeat,
+      #052A48;
+  }
+
+  .dea-hero .dea-wrap {
+    width: min(1180px, calc(100% - 40px));
+  }
+}
+
+.dea-hero-content {
+  max-width: 640px;
+  padding: 95px 0 135px;
 }
 
 /* SEO heading: names what we do, in the small label style. */
@@ -274,101 +295,10 @@
   font-size: 20px;
 }
 
-/* Photo now; the welcome video takes its place once it is set. */
-.dea-hero-photo img {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border: 1px solid rgba(101,198,242,.25);
-  border-radius: 16px;
-  box-shadow: 0 22px 50px rgba(0,0,0,.35);
-}
-
-.dea-hero.has-video .dea-hero-photo {
-  display: none;
-}
-
 .dea-hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-}
-
-
-/* =========================================================
-   WELCOME VIDEO
-   Click-to-play: the player only loads when someone presses play.
-   ========================================================= */
-
-.dea-video {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border: 1px solid rgba(101,198,242,.25);
-  border-radius: 14px;
-  background: #031c33;
-  box-shadow: 0 22px 50px rgba(0,0,0,.35);
-}
-
-.dea-video iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.dea-video-play {
-  all: unset;
-  position: absolute;
-  inset: 0;
-  display: block;
-  cursor: pointer;
-}
-
-.dea-video-play img {
-  width: 100%;
-  height: 100% !important;
-  object-fit: cover;
-  transition: transform .4s ease;
-}
-
-.dea-video-play:hover img {
-  transform: scale(1.03);
-}
-
-.dea-video-badge {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px 12px 14px;
-  border-radius: 999px;
-  background: var(--gold);
-  color: var(--navy);
-  font-weight: 800;
-  white-space: nowrap;
-  transform: translate(-50%,-50%);
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  transition: transform .22s ease, background .22s ease;
-}
-
-.dea-video-play:hover .dea-video-badge {
-  background: var(--gold-hover);
-  transform: translate(-50%,-50%) scale(1.05);
-}
-
-.dea-video-badge svg {
-  width: 28px;
-  height: 28px;
-}
-
-.dea-video-caption {
-  margin: 12px 0 0;
-  color: rgba(255,255,255,.80);
-  font-size: 14px;
-  text-align: center;
 }
 
 
@@ -400,17 +330,19 @@
 }
 
 .dea-start-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 14px;
 }
 
 .dea-start-card {
+  flex: 0 0 calc((100% - 42px) / 4);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   min-height: 92px;
-  padding: 16px 18px;
+  padding: 16px;
   border: 1.5px solid var(--border);
   border-radius: 12px;
   background: linear-gradient(180deg,#ffffff 0%,#f6fbfd 100%);
@@ -457,7 +389,7 @@
 
 .dea-start-text strong {
   color: var(--navy);
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1.15;
 }
 
@@ -466,14 +398,6 @@
   font-size: 15px;
   font-weight: 700;
 }
-
-.dea-start-note {
-  margin: 18px 0 0;
-  color: var(--text);
-  font-size: 15px;
-  text-align: center;
-}
-
 
 /* =========================================================
    PROOF: NUMBERS, TESTIMONIALS, LOGOS
@@ -520,7 +444,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-.dea-stat span {
+.dea-stat > span {
   display: block;
   margin-top: 6px;
   color: var(--text);
@@ -642,6 +566,11 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  padding: 26px 20px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(11,58,103,.07);
 }
 
 .dea-logo-viewport {
@@ -682,19 +611,26 @@
   flex: none;
 }
 
-.dea-logo-list img {
-  width: auto;
-  height: 64px;
-  max-width: 170px;
-  object-fit: contain;
-  filter: grayscale(1);
-  opacity: .72;
-  transition: filter .25s ease, opacity .25s ease;
+.dea-logo-list a {
+  display: block;
+  border-radius: 6px;
+  transition: transform .22s ease;
 }
 
-.dea-logo-list img:hover {
-  filter: none;
-  opacity: 1;
+.dea-logo-list a:hover {
+  transform: scale(1.06);
+}
+
+.dea-logo-list a:focus-visible {
+  outline: 3px solid var(--cyan-light);
+  outline-offset: 4px;
+}
+
+.dea-logo-list img {
+  width: auto;
+  height: 72px;
+  max-width: 180px;
+  object-fit: contain;
 }
 
 .dea-logo-pause {
@@ -1159,7 +1095,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  /* Anchored to the top so people's heads aren't cropped off. */
+  object-position: center top;
 }
 
 .dea-bottom-cta::after {
@@ -1216,18 +1153,8 @@
 
 @media (max-width:1050px) {
 
-  .dea-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 64px 0 110px;
-  }
-
-  .dea-hero-media {
-    max-width: 640px;
-  }
-
-  .dea-start-grid {
-    grid-template-columns: repeat(2,1fr);
+  .dea-start-card {
+    flex-basis: calc((100% - 14px) / 2);
   }
 
   .dea-answer-grid {
@@ -1285,14 +1212,8 @@
     padding: 53px 0;
   }
 
-  /* Phones: no hero photo (the <picture> also skips downloading it). */
-  .dea-hero-photo {
-    display: none;
-  }
-
-  .dea-hero-grid {
-    gap: 28px;
-    padding: 48px 0 84px;
+  .dea-hero-content {
+    padding: 52px 0 84px;
   }
 
   .dea-hero-lead {
@@ -1313,11 +1234,11 @@
   }
 
   .dea-start-grid {
-    grid-template-columns: 1fr;
     gap: 10px;
   }
 
   .dea-start-card {
+    flex-basis: 100%;
     min-height: 74px;
     padding: 12px 14px;
   }
@@ -1349,9 +1270,13 @@
     padding: 0 18px;
   }
 
+  .dea-logos {
+    padding: 18px 12px;
+  }
+
   .dea-logo-list img {
-    height: 52px;
-    max-width: 130px;
+    height: 56px;
+    max-width: 140px;
   }
 
   .dea-answers-head {
@@ -1455,8 +1380,7 @@
   .dea-home .dea-start-card:hover,
   .dea-home .dea-answer-card:hover,
   .dea-home .dea-build-card:hover,
-  .dea-home .dea-answer-card:hover img,
-  .dea-home .dea-video-play:hover img {
+  .dea-home .dea-answer-card:hover img {
     transform: none;
   }
 
@@ -1493,87 +1417,44 @@
 
 <section class="dea-hero" id="dea-hero">
 
+  <!-- Starts the stage photo downloading early on tablets and computers. -->
+  <link
+    rel="preload"
+    as="image"
+    href="/wp-content/uploads/2026/08/Wide-Auditorium-Stage.webp"
+    media="(min-width: 768px)"
+    fetchpriority="high">
+
   <div class="dea-wrap">
 
-    <div class="dea-hero-grid">
+    <div class="dea-hero-content">
 
-      <div class="dea-hero-content">
+      <h1>
+        Truthful drug education for schools, families and communities
+      </h1>
 
-        <h1>
-          Truthful drug education for schools, families and communities
-        </h1>
+      <p class="dea-hero-tagline">
+        Real Conversations.
+        <span>Brighter Futures.</span>
+      </p>
 
-        <p class="dea-hero-tagline">
-          Real Conversations.
-          <span>Brighter Futures.</span>
-        </p>
+      <p class="dea-hero-lead">
+        Straight facts about drugs, for young people and the adults who care about them.
+      </p>
 
-        <p class="dea-hero-lead">
-          Straight facts about drugs, for young people and the adults who care about them.
-        </p>
+      <div class="dea-hero-actions">
 
-        <div class="dea-hero-actions">
+        <a
+          class="dea-btn dea-btn-gold"
+          href="/schools-educators/">
+          Book a Presentation for My School <span aria-hidden="true">→</span>
+        </a>
 
-          <a
-            class="dea-btn dea-btn-gold"
-            href="/schools-educators/">
-            Book a Presentation for My School <span aria-hidden="true">→</span>
-          </a>
-
-          <a
-            class="dea-btn dea-btn-outline"
-            href="/drug-information/">
-            Get the Facts About Drugs
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="dea-hero-media">
-
-        <!-- HERO PHOTO (tablets and computers only; phones skip the download).
-             To use a different photo, change the srcset address below. -->
-        <picture class="dea-hero-photo">
-          <source
-            media="(min-width: 768px)"
-            srcset="/wp-content/uploads/2026/01/teacher-stage-2-1.webp">
-          <img
-            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            alt="Drug educator presenting to a group of students"
-            width="1200"
-            height="900"
-            fetchpriority="high"
-            decoding="async">
-        </picture>
-
-
-        <!-- WELCOME VIDEO
-             Stays hidden until a YouTube video ID is filled in below, e.g. for
-             https://www.youtube.com/watch?v=AbC123xYz the ID is AbC123xYz.
-             Once set, the video replaces the photo above. -->
-        <div
-          class="dea-video-wrap"
-          id="dea-welcome-video"
-          data-youtube-id=""
-          data-title="Welcome to Drug Educators Alliance"
-          hidden>
-
-          <div class="dea-video">
-            <button type="button" class="dea-video-play" aria-label="Play video: Welcome to Drug Educators Alliance">
-              <span class="dea-video-badge" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 8l6 4-6 4z"/></svg>
-                Watch the 90-second welcome
-              </span>
-            </button>
-          </div>
-
-          <p class="dea-video-caption">
-            What we do, who we help, and where to start.
-          </p>
-
-        </div>
+        <a
+          class="dea-btn dea-btn-outline"
+          href="/drug-information/">
+          Get the Facts About Drugs
+        </a>
 
       </div>
 
@@ -1659,12 +1540,17 @@
           </span>
         </a>
 
-      </div>
+        <a class="dea-start-card" href="/workforce-drug-education/">
+          <span class="dea-start-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6a2 2 0 0 1 2 2v1.5h3.5A1.5 1.5 0 0 1 22 8v4.2H2V8a1.5 1.5 0 0 1 1.5-1.5H7V5a2 2 0 0 1 2-2zm0 2v1.5h6V5z"/><path d="M2 13.8h8.6v1.4h2.8v-1.4H22V19a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 19z"/></svg>
+          </span>
+          <span class="dea-start-text">
+            <strong>Workplace Drug Education</strong>
+            <span>Coming soon →</span>
+          </span>
+        </a>
 
-      <p class="dea-start-note">
-        Employers: workplace drug education is on the way.
-        <a class="dea-text-link" href="/workforce-drug-education/">See what's coming <span aria-hidden="true">→</span></a>
-      </p>
+      </div>
 
     </div>
 
@@ -1695,12 +1581,12 @@
     <div class="dea-stat-grid">
 
       <div class="dea-stat">
-        <strong>20,869</strong>
+        <strong><span class="dea-sr">20,869</span><span class="dea-count" data-count="20869" aria-hidden="true">20,869</span></strong>
         <span>teachers trained</span>
       </div>
 
       <div class="dea-stat">
-        <strong>5,615,843</strong>
+        <strong><span class="dea-sr">5,615,843</span><span class="dea-count" data-count="5615843" aria-hidden="true">5,615,843</span></strong>
         <span>students reached</span>
       </div>
 
@@ -1801,22 +1687,22 @@
         <div class="dea-logo-track">
 
           <ul class="dea-logo-list" aria-labelledby="dea-logos-label">
-            <li><img src="/wp-content/uploads/2026/10/NASRO.png" alt="National Association of School Resource Officers (NASRO)" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/ADTSEA.png" alt="American Driver &amp; Traffic Safety Education Association (ADTSEA)" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/Baltimore-Police-Department.png" alt="Baltimore Police Department" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/Vermont-Department-of-Health.png" alt="Vermont Department of Health" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/DSAA.png" alt="Driving School Association of the Americas (DSAA)" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/Anchorage-Police.png" alt="Anchorage Police Department" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/Maine-DOT.png" alt="Maine Department of Transportation" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/PASRO.png" alt="Pennsylvania Association of School Resource Officers (PASRO)" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/UTDOT.png" alt="Utah Department of Transportation" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/SERADTSEA.png" alt="Southeast Region American Driver &amp; Traffic Safety Education Association (SERADTSEA)" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/North-Carolina-SRO.png" alt="North Carolina School Resource Officers" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/Zero-Fatalities.png" alt="Zero Fatalities" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/SCDTSEA.png" alt="South Carolina Driver &amp; Traffic Safety Education Association (SCDTSEA)" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/City-of-Fitchburg.png" alt="City of Fitchburg" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/ODTSEA.png" alt="ODTSEA" loading="lazy" decoding="async"></li>
-            <li><img src="/wp-content/uploads/2026/10/DrivingSchool-of-Louisana.png" alt="Driving School Association of Louisiana" loading="lazy" decoding="async"></li>
+            <li><a href="https://nasro.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/NASRO.png" alt="National Association of School Resource Officers (NASRO)" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.adtsea.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/ADTSEA.png" alt="American Driver &amp; Traffic Safety Education Association (ADTSEA)" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.baltimorepolice.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/Baltimore-Police-Department.png" alt="Baltimore Police Department" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.healthvermont.gov/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/Vermont-Department-of-Health.png" alt="Vermont Department of Health" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://dsaa.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/DSAA.png" alt="Driving School Association of the Americas (DSAA)" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.anchoragepolice.com/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/Anchorage-Police.png" alt="Anchorage Police Department" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.maine.gov/dot/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/Maine-DOT.png" alt="Maine Department of Transportation" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.pasro.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/PASRO.png" alt="Pennsylvania Association of School Resource Officers (PASRO)" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.udottraffic.utah.gov/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/UTDOT.png" alt="Utah Department of Transportation" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.seradtsea.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/SERADTSEA.png" alt="Southeast Region American Driver &amp; Traffic Safety Education Association (SERADTSEA)" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://ncasro.com/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/North-Carolina-SRO.png" alt="North Carolina Association of School Resource Officers" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://zerofatalities.com/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/Zero-Fatalities.png" alt="Zero Fatalities" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.scdtsea.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/SCDTSEA.png" alt="South Carolina Driver &amp; Traffic Safety Education Association (SCDTSEA)" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.fitchburgma.gov/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/City-of-Fitchburg.png" alt="City of Fitchburg" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://drivereducationcenter.com/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/ODTSEA.png" alt="ODTSEA" loading="lazy" decoding="async"></a></li>
+            <li><a href="https://www.dsal.org/" target="_blank" rel="noopener"><img src="/wp-content/uploads/2026/10/DrivingSchool-of-Louisana.png" alt="Driving School Association of Louisiana" loading="lazy" decoding="async"></a></li>
           </ul>
 
           <!-- Copy of the list above so the scroll loops seamlessly; filled in by the script and hidden from screen readers. -->
@@ -2877,32 +2763,36 @@
 <script>
 (function () {
 
-  /* Welcome video: shown only once a YouTube ID is set on #dea-welcome-video. */
-  var video = document.getElementById("dea-welcome-video");
-  var id = video && video.getAttribute("data-youtube-id").trim();
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (id) {
-    var hero = document.getElementById("dea-hero");
-    var play = video.querySelector(".dea-video-play");
-    var poster = document.createElement("img");
-    poster.alt = "";
-    poster.width = 480;
-    poster.height = 360;
-    play.prepend(poster);
+  /* Numbers count up from zero the first time they scroll into view. */
+  var counters = document.querySelectorAll(".dea-count");
 
-    poster.src = "https://i.ytimg.com/vi/" + encodeURIComponent(id) + "/hqdefault.jpg";
-    poster.onerror = function () { this.remove(); };
-    hero.classList.add("has-video");
-    video.hidden = false;
+  if (counters.length && !reduceMotion && "IntersectionObserver" in window) {
+    var countUp = function (el) {
+      var target = Number(el.getAttribute("data-count"));
+      var start = performance.now();
+      var step = function (now) {
+        var t = Math.min((now - start) / 2200, 1);
+        var eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(target * eased).toLocaleString("en-US");
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
 
-    play.addEventListener("click", function () {
-      var frame = document.createElement("iframe");
-      frame.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0&cc_load_policy=1";
-      frame.title = video.getAttribute("data-title") || "Video";
-      frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
-      frame.allowFullscreen = true;
-      play.replaceWith(frame);
-      frame.focus();
+    var seen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          seen.unobserve(entry.target);
+          countUp(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (el) {
+      el.textContent = "0";
+      seen.observe(el);
     });
   }
 
@@ -2913,6 +2803,7 @@
     var lists = logos.querySelectorAll(".dea-logo-list");
     lists[1].innerHTML = lists[0].innerHTML;
     lists[1].querySelectorAll("img").forEach(function (img) { img.alt = ""; });
+    lists[1].querySelectorAll("a").forEach(function (a) { a.tabIndex = -1; });
 
     var pause = logos.querySelector(".dea-logo-pause");
     pause.addEventListener("click", function () {

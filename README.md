@@ -29,15 +29,21 @@ To install: edit the page with Elementor, open the existing HTML widget, select 
 
 The complete home page, organized around visitors finding their own path:
 
-1. **Hero** with a photo, which the welcome video replaces once it's ready.
-2. **"Who are you? Start here."** buttons for Parents, Teachers & Schools, Driver Educators, Law Enforcement & Courts, Community & Youth Leaders and Teens, plus a note for Employers.
-3. **Track record**: verified numbers, named testimonials, teacher survey quotes and a scrolling strip of organization logos (with a pause button; it sits still for visitors who turn off motion).
+1. **Hero** over the stage photo (tablets and computers; phones get the plain blue background).
+2. **"Who are you? Start here."** buttons for Parents, Teachers & Schools, Driver Educators, Law Enforcement & Courts, Community & Youth Leaders, Teens and Workplace Drug Education (coming soon).
+3. **Track record**: verified numbers that count up when they scroll into view, named testimonials, teacher survey quotes and a scrolling strip of organization logos in color, each linking to that organization's site (with a pause button; it sits still for visitors who turn off motion).
 4. **Drug Educator Certification** (now enrolling).
 5. **Drug information** cards and a "Need help now?" box with 911, Poison Control, 988 and SAMHSA.
 6. **What we're building next**: the interactive ONE Platform diagram (every card and the center disc link to `/one-platform/`), then cards for The Real Cost, the First-Time Offender Program and the national campaign.
 7. **Support** buttons.
 
-To install: edit the home page with Elementor, open the HTML widget, replace all of its code with the full contents of this file, and click **Update**.
+### Install
+Paste `home-page-elementor-compact.html` into the home page's Elementor HTML widget, replacing all of its code, and click **Update**.
+
+**If saving gives a 403 error**, the host's security firewall is blocking the save. Use the three files in `home-page-split/` instead; they keep the `<style>` and `<script>` code out of the page:
+1. `1-styles.css` → **Appearance → Customize → Additional CSS** (all rules are scoped to this page's sections, so they don't affect other pages).
+2. `2-page.html` → the home page's Elementor HTML widget.
+3. `3-scripts.html` → a code snippet plugin such as WPCode, as an HTML snippet in the site footer, shown on the front page only.
 
 ### Before publishing
 - The **Driver Educators** button links to `/drug-educator-certification/` until a Driver Educators page exists; then change its link (marked with a comment).
@@ -46,11 +52,12 @@ To install: edit the home page with Elementor, open the HTML widget, replace all
 - Yoast handles the page title, meta description, canonical URL, social sharing tags and the Organization / WebSite / WebPage structured data. This file doesn't repeat any of them.
 - The page has exactly one `<h1>`, in the hero. In Elementor, keep **Hide Title** turned on for the home page so the theme doesn't add a second one.
 - The file adds structured data for the Drug Educator Certification course, linked to Yoast's organization. Update its `price` and `validThrough` when the Q4 special ends.
+- The counting numbers are also in the page as plain text for search engines and screen readers.
 
 ### Customize
-- **Hero photo**: change the `srcset` address in the hero's `<picture>`.
-- **Welcome video**: find `data-youtube-id=""` in the hero and put the video's YouTube ID between the quotes (for `https://www.youtube.com/watch?v=AbC123xYz` the ID is `AbC123xYz`). Until then the photo shows instead. The video only loads when someone presses play.
-- **Logos**: each logo is one `<li>` line in the "Organizations we've trained" list. Add, remove or reorder lines there; the scrolling copy is made automatically.
+- **Hero photo**: change the image address in the `.dea-hero` CSS rule and in the `preload` link at the top of the hero.
+- **Logos**: each logo is one `<li>` line in the "Organizations we've trained" list, with its website link. Add, remove or reorder lines there; the scrolling copy is made automatically.
 - **Testimonials**: words in [brackets] were changed from the original quote and "…" marks shortened text, so readers can tell.
 
-`home-page-elementor-compact.html` is the same page with the CSS minified and the minified ONE Platform diagram in place of the readable one (between the `ONE DIAGRAM START` / `END` comments), for when a hosting firewall rejects the larger save. Edit the readable file; regenerate the compact one from it.
+### Rebuilding
+Edit `home-page-elementor.html` (the readable version), then run `python3 build.py`. It regenerates `home-page-elementor-compact.html` and `home-page-split/`, using the minified ONE diagram in `src/one-diagram-home.min.html` (it goes between the `ONE DIAGRAM START` / `END` comments).
