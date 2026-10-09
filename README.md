@@ -34,13 +34,13 @@ The complete home page, organized around visitors finding their own path:
 3. **Track record**: verified numbers, named testimonials, teacher survey quotes and a scrolling strip of organization logos (with a pause button; it sits still for visitors who turn off motion).
 4. **Drug Educator Certification** (now enrolling).
 5. **Drug information** cards and a "Need help now?" box with 911, Poison Control, 988 and SAMHSA.
-6. **What we're building next**: ONE Platform, The Real Cost, the First-Time Offender Program and the national campaign, each linking to its own page. The full ONE Platform diagram lives on `/one-platform/`.
+6. **What we're building next**: the interactive ONE Platform diagram (every card and the center disc link to `/one-platform/`), then cards for The Real Cost, the First-Time Offender Program and the national campaign.
 7. **Support** buttons.
 
 To install: edit the home page with Elementor, open the HTML widget, replace all of its code with the full contents of this file, and click **Update**.
 
 ### Before publishing
-- The **Driver Educators** button links to `/driver-educators/`. Create that page first, or change the link.
+- The **Driver Educators** button links to `/drug-educator-certification/` until a Driver Educators page exists; then change its link (marked with a comment).
 
 ### SEO
 - Yoast handles the page title, meta description, canonical URL, social sharing tags and the Organization / WebSite / WebPage structured data. This file doesn't repeat any of them.
@@ -53,4 +53,4 @@ To install: edit the home page with Elementor, open the HTML widget, replace all
 - **Logos**: each logo is one `<li>` line in the "Organizations we've trained" list. Add, remove or reorder lines there; the scrolling copy is made automatically.
 - **Testimonials**: words in [brackets] were changed from the original quote and "…" marks shortened text, so readers can tell.
 
-`home-page-elementor-compact.html` is the same page with the CSS minified, for when a hosting firewall rejects the larger save. Edit the readable file; regenerate the compact one from it.
+`home-page-elementor-compact.html` is the same page with the CSS minified and the minified ONE Platform diagram in place of the readable one (between the `ONE DIAGRAM START` / `END` comments), for when a hosting firewall rejects the larger save. Edit the readable file; regenerate the compact one from it.
