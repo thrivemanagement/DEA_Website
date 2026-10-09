@@ -54,9 +54,8 @@
   text-decoration: none;
 }
 
-/* Background photos fill their section (the rule above would otherwise
+/* The background photo fills its section (the rule above would otherwise
    set their height to auto and show only the top of the photo). */
-.dea-home .dea-hero-bg,
 .dea-home .dea-bottom-cta-bg {
   height: 100%;
 }
@@ -220,92 +219,72 @@
 
 .dea-hero {
   position: relative;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
   overflow: hidden;
-  background: #052A48;
-}
-
-.dea-hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 72%;
-  display: block;
-}
-
-.dea-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
   background:
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(25,188,210,.20),
+      transparent 38%
+    ),
     linear-gradient(
-      90deg,
-      rgba(5,42,72,.97) 0%,
-      rgba(5,42,72,.88) 40%,
-      rgba(5,42,72,.40) 68%,
-      rgba(5,42,72,.10) 100%
+      145deg,
+      #052A48 0%,
+      #0B3A67 62%,
+      #075B76 100%
     );
-}
-
-.dea-hero .dea-wrap {
-  position: relative;
-  z-index: 2;
 }
 
 .dea-hero-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 48px;
-  align-items: center;
-}
-
-/* Two columns once a welcome video is set (see the script at the bottom). */
-.dea-hero.has-video .dea-hero-grid {
   grid-template-columns: minmax(0,1.05fr) minmax(0,1fr);
+  gap: 56px;
+  align-items: center;
+  padding: 80px 0 120px;
 }
 
-.dea-hero.has-video::after {
-  background: rgba(5,42,72,.90);
-}
-
-.dea-hero-content {
-  max-width: 760px;
-  padding: 95px 0 110px;
-}
-
-.dea-hero .dea-kicker {
-  color: #8fd8ff;
-}
-
+/* SEO heading: names what we do, in the small label style. */
 .dea-hero h1 {
+  margin: 0 0 14px;
+  color: #8fd8ff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.dea-hero-tagline {
   margin: 0 0 22px;
   color: #fff;
-  font-size: clamp(43px,6vw,74px);
+  font-size: clamp(40px,4.4vw,58px);
   font-weight: 850;
   line-height: .98;
   letter-spacing: -.025em;
 }
 
-.dea-hero.has-video h1 {
-  font-size: clamp(40px,4.6vw,62px);
-}
-
-.dea-hero h1 span {
+.dea-hero-tagline span {
+  display: block;
   color: #65c6f2;
 }
 
-.dea-hero p {
-  max-width: 600px;
+.dea-hero-lead {
+  max-width: 560px;
   margin: 0 0 30px;
   color: rgba(255,255,255,.95);
   font-size: 20px;
+}
+
+/* Photo now; the welcome video takes its place once it is set. */
+.dea-hero-photo img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid rgba(101,198,242,.25);
+  border-radius: 16px;
+  box-shadow: 0 22px 50px rgba(0,0,0,.35);
+}
+
+.dea-hero.has-video .dea-hero-photo {
+  display: none;
 }
 
 .dea-hero-actions {
@@ -385,8 +364,7 @@
   height: 28px;
 }
 
-.dea-hero .dea-video-caption {
-  max-width: none;
+.dea-video-caption {
   margin: 12px 0 0;
   color: rgba(255,255,255,.80);
   font-size: 14px;
@@ -1179,18 +1157,14 @@
 
 @media (max-width:1050px) {
 
-  .dea-hero.has-video .dea-hero-grid {
+  .dea-hero-grid {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 36px;
+    padding: 64px 0 110px;
   }
 
-  .dea-hero.has-video .dea-hero-content {
-    padding-bottom: 36px;
-  }
-
-  .dea-hero.has-video .dea-video-wrap {
+  .dea-hero-media {
     max-width: 640px;
-    padding-bottom: 100px;
   }
 
   .dea-start-grid {
@@ -1253,44 +1227,17 @@
     padding: 53px 0;
   }
 
-  /* CLEAN BLUE MOBILE HERO - NO BACKGROUND PHOTO
-     (the <picture> in the hero also skips downloading it on phones) */
-  .dea-hero {
-    min-height: 0;
-    display: block;
-    background:
-      radial-gradient(
-        circle at 88% 12%,
-        rgba(25,188,210,.18),
-        transparent 34%
-      ),
-      linear-gradient(
-        145deg,
-        #052A48 0%,
-        #0B3A67 62%,
-        #075B76 100%
-      );
-  }
-
-  .dea-home .dea-hero-bg {
-    display: none !important;
-  }
-
-  .dea-hero::after {
+  /* Phones: no hero photo (the <picture> also skips downloading it). */
+  .dea-hero-photo {
     display: none;
   }
 
-  .dea-hero-content {
-    max-width: none;
-    padding: 52px 0 84px;
+  .dea-hero-grid {
+    gap: 28px;
+    padding: 48px 0 84px;
   }
 
-  .dea-hero.has-video .dea-video-wrap {
-    padding-bottom: 84px;
-  }
-
-  .dea-hero p {
-    max-width: none;
+  .dea-hero-lead {
     font-size: 18px;
     line-height: 1.6;
   }
@@ -1394,8 +1341,7 @@
 
 @media (max-width:480px) {
 
-  .dea-hero h1,
-  .dea-hero.has-video h1 {
+  .dea-hero-tagline {
     font-size: 39px;
     line-height: 1.02;
   }
@@ -1487,39 +1433,22 @@
 
 <section class="dea-hero" id="dea-hero">
 
-  <!-- Desktop-only photo: phones get the plain blue background and skip the download. -->
-  <picture>
-    <source
-      media="(min-width: 768px)"
-      srcset="/wp-content/uploads/2026/08/Wide-Auditorium-Stage.webp"
-      width="1600"
-      height="900">
-    <img
-      class="dea-hero-bg"
-      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-      alt=""
-      width="1600"
-      height="900"
-      fetchpriority="high"
-      decoding="async">
-  </picture>
-
   <div class="dea-wrap">
 
     <div class="dea-hero-grid">
 
       <div class="dea-hero-content">
 
-        <div class="dea-kicker">
-          Truthful drug education
-        </div>
-
         <h1>
-          Real Conversations.<br>
-          <span>Brighter Futures.</span>
+          Truthful drug education for schools, families and communities
         </h1>
 
-        <p>
+        <p class="dea-hero-tagline">
+          Real Conversations.
+          <span>Brighter Futures.</span>
+        </p>
+
+        <p class="dea-hero-lead">
           Straight facts about drugs, for young people and the adults who care about them.
         </p>
 
@@ -1542,29 +1471,49 @@
       </div>
 
 
-      <!-- WELCOME VIDEO
-           Stays hidden until a YouTube video ID is filled in below, e.g. for
-           https://www.youtube.com/watch?v=AbC123xYz the ID is AbC123xYz. -->
-      <div
-        class="dea-video-wrap"
-        id="dea-welcome-video"
-        data-youtube-id=""
-        data-title="Welcome to Drug Educators Alliance"
-        hidden>
+      <div class="dea-hero-media">
 
-        <div class="dea-video">
-          <button type="button" class="dea-video-play" aria-label="Play video: Welcome to Drug Educators Alliance">
-            <img alt="" width="1280" height="720" decoding="async">
-            <span class="dea-video-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 8l6 4-6 4z"/></svg>
-              Watch the 90-second welcome
-            </span>
-          </button>
+        <!-- HERO PHOTO (tablets and computers only; phones skip the download).
+             To use a different photo, change the srcset address below. -->
+        <picture class="dea-hero-photo">
+          <source
+            media="(min-width: 768px)"
+            srcset="/wp-content/uploads/2026/01/teacher-stage-2-1.webp">
+          <img
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            alt="Drug educator presenting to a group of students"
+            width="1200"
+            height="900"
+            fetchpriority="high"
+            decoding="async">
+        </picture>
+
+
+        <!-- WELCOME VIDEO
+             Stays hidden until a YouTube video ID is filled in below, e.g. for
+             https://www.youtube.com/watch?v=AbC123xYz the ID is AbC123xYz.
+             Once set, the video replaces the photo above. -->
+        <div
+          class="dea-video-wrap"
+          id="dea-welcome-video"
+          data-youtube-id=""
+          data-title="Welcome to Drug Educators Alliance"
+          hidden>
+
+          <div class="dea-video">
+            <button type="button" class="dea-video-play" aria-label="Play video: Welcome to Drug Educators Alliance">
+              <span class="dea-video-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 8l6 4-6 4z"/></svg>
+                Watch the 90-second welcome
+              </span>
+            </button>
+          </div>
+
+          <p class="dea-video-caption">
+            What we do, who we help, and where to start.
+          </p>
+
         </div>
-
-        <p class="dea-video-caption">
-          What we do, who we help, and where to start.
-        </p>
 
       </div>
 
@@ -1748,7 +1697,7 @@
     </div>
 
 
-    <!-- Anonymous answers from teachers' follow-up surveys (light spelling fixes only). -->
+    <!-- Anonymous answers from teachers' follow-up surveys. Bracketed words were changed from the original answers. -->
     <div class="dea-surveys">
 
       <h3>What teachers tell us</h3>
@@ -1756,22 +1705,22 @@
       <div class="dea-survey-grid">
 
         <figure class="dea-survey">
-          <blockquote><p>"Videos are realistic and relate to kids more than a lot of videos I see out there."</p></blockquote>
+          <blockquote><p>"[The materials] are realistic and relate to kids more than a lot of [materials] out there."</p></blockquote>
           <figcaption>Teacher, program survey</figcaption>
         </figure>
 
         <figure class="dea-survey">
-          <blockquote><p>"The visuals seen help dispel the myths that drugs aren't going to hurt you if you only experiment with them."</p></blockquote>
+          <blockquote><p>"[The information] dispels the myths that drugs aren't going to hurt you if you only experiment with them."</p></blockquote>
           <figcaption>Teacher, program survey</figcaption>
         </figure>
 
         <figure class="dea-survey">
-          <blockquote><p>"Students use your website for research and teach their classmates about a topic."</p></blockquote>
+          <blockquote><p>"Students use your website for research and teach their classmates about [what drugs really do]."</p></blockquote>
           <figcaption>Teacher, program survey</figcaption>
         </figure>
 
         <figure class="dea-survey">
-          <blockquote><p>"It has proven to be a valuable asset in the class and driver's ed."</p></blockquote>
+          <blockquote><p>"It has proven to be a valuable asset in the class and [for driver education]."</p></blockquote>
           <figcaption>Driver education teacher, program survey</figcaption>
         </figure>
 
@@ -1956,7 +1905,7 @@
 
         <img
           src="/wp-content/uploads/2026/09/dea-real-answers-fentanyl.webp"
-          alt=""
+          alt="Fentanyl pills and powder"
           loading="lazy"
           decoding="async">
 
@@ -1972,7 +1921,7 @@
 
         <img
           src="/wp-content/uploads/2026/09/dea-real-answers-marijuana-thc.webp"
-          alt=""
+          alt="Marijuana and THC products"
           loading="lazy"
           decoding="async">
 
@@ -1988,7 +1937,7 @@
 
         <img
           src="/wp-content/uploads/2026/09/dea-real-answers-vaping.webp"
-          alt=""
+          alt="Vaping devices"
           loading="lazy"
           decoding="async">
 
@@ -2004,7 +1953,7 @@
 
         <img
           src="/wp-content/uploads/2026/09/dea-real-answers-prescription-drugs.webp"
-          alt=""
+          alt="Prescription medications"
           loading="lazy"
           decoding="async">
 
@@ -2020,7 +1969,7 @@
 
         <img
           src="/wp-content/uploads/2026/09/dea-real-answers-alcohol.webp"
-          alt=""
+          alt="Alcoholic beverages"
           loading="lazy"
           decoding="async">
 
@@ -2036,7 +1985,7 @@
 
         <img
           src="/wp-content/uploads/2026/09/dea-real-answers-talking-with-teens.webp"
-          alt=""
+          alt="Parent having a supportive conversation with a teenager"
           loading="lazy"
           decoding="async">
 
@@ -2184,6 +2133,58 @@
 </main>
 
 
+<!-- STRUCTURED DATA for the Drug Educator Certification course.
+     Yoast already outputs the Organization, WebSite and WebPage data; this adds
+     only what Yoast doesn't. Update "price" and "validThrough" when the Q4 special ends. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "@id": "https://drugeducators.org/drug-educator-certification/#course",
+  "name": "Drug Educator Certification",
+  "description": "Live, instructor-led eight-hour training for teachers, police and school resource officers, driver educators, prevention professionals, youth leaders and parents, with a ready-to-use curriculum and a two-year Drug Educator Certification.",
+  "url": "https://drugeducators.org/drug-educator-certification/",
+  "inLanguage": "en-US",
+  "educationalCredentialAwarded": "Drug Educator Certification (valid for two years)",
+  "provider": {
+    "@type": "Organization",
+    "@id": "https://drugeducators.org/#organization",
+    "name": "Drug Educators Alliance",
+    "url": "https://drugeducators.org/"
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Paid",
+    "price": "199",
+    "priceCurrency": "USD",
+    "validThrough": "2026-12-31",
+    "availability": "https://schema.org/InStock",
+    "url": "https://drugeducators.org/drug-educator-certification-registration/"
+  },
+  "hasCourseInstance": [
+    {
+      "@type": "CourseInstance",
+      "courseMode": "Online",
+      "courseWorkload": "PT8H",
+      "instructor": {
+        "@type": "Organization",
+        "@id": "https://drugeducators.org/#organization"
+      }
+    },
+    {
+      "@type": "CourseInstance",
+      "courseMode": "Onsite",
+      "courseWorkload": "PT8H",
+      "instructor": {
+        "@type": "Organization",
+        "@id": "https://drugeducators.org/#organization"
+      }
+    }
+  ]
+}
+</script>
+
+
 <script>
 (function () {
 
@@ -2194,7 +2195,11 @@
   if (id) {
     var hero = document.getElementById("dea-hero");
     var play = video.querySelector(".dea-video-play");
-    var poster = play.querySelector("img");
+    var poster = document.createElement("img");
+    poster.alt = "";
+    poster.width = 480;
+    poster.height = 360;
+    play.prepend(poster);
 
     poster.src = "https://i.ytimg.com/vi/" + encodeURIComponent(id) + "/hqdefault.jpg";
     poster.onerror = function () { this.remove(); };

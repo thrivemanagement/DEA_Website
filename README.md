@@ -29,7 +29,7 @@ To install: edit the page with Elementor, open the existing HTML widget, select 
 
 The complete home page, organized around visitors finding their own path:
 
-1. **Hero** with an optional welcome video.
+1. **Hero** with a photo, which the welcome video replaces once it's ready.
 2. **"Who are you? Start here."** buttons for Parents, Teachers & Schools, Driver Educators, Law Enforcement & Courts, Community & Youth Leaders and Teens, plus a note for Employers.
 3. **Track record**: verified numbers, named testimonials, teacher survey quotes and a scrolling strip of organization logos (with a pause button; it sits still for visitors who turn off motion).
 4. **Drug Educator Certification** (now enrolling).
@@ -42,8 +42,14 @@ To install: edit the home page with Elementor, open the HTML widget, replace all
 ### Before publishing
 - The **Driver Educators** button links to `/driver-educators/`. Create that page first, or change the link.
 
+### SEO
+- Yoast handles the page title, meta description, canonical URL, social sharing tags and the Organization / WebSite / WebPage structured data. This file doesn't repeat any of them.
+- The page has exactly one `<h1>`, in the hero. In Elementor, keep **Hide Title** turned on for the home page so the theme doesn't add a second one.
+- The file adds structured data for the Drug Educator Certification course, linked to Yoast's organization. Update its `price` and `validThrough` when the Q4 special ends.
+
 ### Customize
-- **Welcome video**: find `data-youtube-id=""` in the hero and put the video's YouTube ID between the quotes (for `https://www.youtube.com/watch?v=AbC123xYz` the ID is `AbC123xYz`). Until then the video area stays hidden. The video only loads when someone presses play.
+- **Hero photo**: change the `srcset` address in the hero's `<picture>`.
+- **Welcome video**: find `data-youtube-id=""` in the hero and put the video's YouTube ID between the quotes (for `https://www.youtube.com/watch?v=AbC123xYz` the ID is `AbC123xYz`). Until then the photo shows instead. The video only loads when someone presses play.
 - **Logos**: each logo is one `<li>` line in the "Organizations we've trained" list. Add, remove or reorder lines there; the scrolling copy is made automatically.
 - **Testimonials**: words in [brackets] were changed from the original quote and "…" marks shortened text, so readers can tell.
 
