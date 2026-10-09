@@ -583,7 +583,7 @@
 .dea-logo-track {
   display: flex;
   width: max-content;
-  animation: dea-scroll 70s linear infinite;
+  animation: dea-scroll 90s linear infinite;
 }
 
 .dea-logos:hover .dea-logo-track,
@@ -601,14 +601,18 @@
 .dea-logo-list {
   display: flex;
   align-items: center;
-  gap: 54px;
   margin: 0;
-  padding: 0 27px;
+  padding: 0;
   list-style: none;
 }
 
+/* Each logo gets a fixed slot, so about four show at a time on a computer. */
 .dea-logo-list li {
   flex: none;
+  display: grid;
+  place-items: center;
+  width: 270px;
+  padding: 0 24px;
 }
 
 .dea-logo-list a {
@@ -628,8 +632,8 @@
 
 .dea-logo-list img {
   width: auto;
-  height: 72px;
-  max-width: 180px;
+  height: 120px;
+  max-width: 100%;
   object-fit: contain;
 }
 
@@ -844,6 +848,8 @@
 
 .dea-answer-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -892,6 +898,7 @@
 }
 
 .dea-answer-card strong {
+  flex: 1;
   display: block;
   padding: 14px;
   font-size: 15px;
@@ -1265,9 +1272,9 @@
     height: 1px;
   }
 
-  .dea-logo-list {
-    gap: 36px;
-    padding: 0 18px;
+  .dea-logo-list li {
+    width: 190px;
+    padding: 0 16px;
   }
 
   .dea-logos {
@@ -1275,8 +1282,7 @@
   }
 
   .dea-logo-list img {
-    height: 56px;
-    max-width: 140px;
+    height: 88px;
   }
 
   .dea-answers-head {
@@ -1857,7 +1863,7 @@
           decoding="async">
 
         <strong>
-          Fentanyl <span aria-hidden="true">→</span>
+          Fentanyl&nbsp;<span aria-hidden="true">→</span>
         </strong>
 
       </a>
@@ -1873,7 +1879,7 @@
           decoding="async">
 
         <strong>
-          Marijuana &amp; THC <span aria-hidden="true">→</span>
+          Marijuana &amp; THC&nbsp;<span aria-hidden="true">→</span>
         </strong>
 
       </a>
@@ -1889,7 +1895,7 @@
           decoding="async">
 
         <strong>
-          Vaping <span aria-hidden="true">→</span>
+          Vaping&nbsp;<span aria-hidden="true">→</span>
         </strong>
 
       </a>
@@ -1905,7 +1911,7 @@
           decoding="async">
 
         <strong>
-          Prescription Drugs <span aria-hidden="true">→</span>
+          Prescription Drugs&nbsp;<span aria-hidden="true">→</span>
         </strong>
 
       </a>
@@ -1921,7 +1927,7 @@
           decoding="async">
 
         <strong>
-          Alcohol <span aria-hidden="true">→</span>
+          Alcohol&nbsp;<span aria-hidden="true">→</span>
         </strong>
 
       </a>
@@ -1937,7 +1943,7 @@
           decoding="async">
 
         <strong>
-          Talking With Teens <span aria-hidden="true">→</span>
+          Talking With Teens&nbsp;<span aria-hidden="true">→</span>
         </strong>
 
       </a>
