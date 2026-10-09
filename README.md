@@ -25,10 +25,26 @@ The complete https://drugeducators.org/one-platform/ page with the interactive e
 
 To install: edit the page with Elementor, open the existing HTML widget, select all of its code, and replace it with the full contents of this file. Then click **Update**.
 
-## Home page with ONE Platform teaser (`home-page-elementor.html`)
+## Home page (`home-page-elementor.html`)
 
-The complete home page with a new "ONE Platform" section between "Programs, Training & Initiatives" and "The Real Cost". It uses the same interactive diagram, tuned as a teaser: every description card and the center disc link to `/one-platform/`, and the section ends with an "Explore ONE Platform" button.
+The complete home page, organized around visitors finding their own path:
+
+1. **Hero** with an optional welcome video.
+2. **"Who are you? Start here."** buttons for Parents, Teachers & Schools, Driver Educators, Law Enforcement & Courts, Community & Youth Leaders and Teens, plus a note for Employers.
+3. **Track record**: verified numbers, named testimonials, teacher survey quotes and a scrolling strip of organization logos (with a pause button; it sits still for visitors who turn off motion).
+4. **Drug Educator Certification** (now enrolling).
+5. **Drug information** cards and a "Need help now?" box with 911, Poison Control, 988 and SAMHSA.
+6. **What we're building next**: ONE Platform, The Real Cost, the First-Time Offender Program and the national campaign, each linking to its own page. The full ONE Platform diagram lives on `/one-platform/`.
+7. **Support** buttons.
 
 To install: edit the home page with Elementor, open the HTML widget, replace all of its code with the full contents of this file, and click **Update**.
 
-`home-page-elementor-compact.html` is the same page with the diagram's CSS and JavaScript minified (about 11 KB smaller), for when a hosting firewall rejects the larger save. Edit the readable files; regenerate the compact one from them.
+### Before publishing
+- The **Driver Educators** button links to `/driver-educators/`. Create that page first, or change the link.
+
+### Customize
+- **Welcome video**: find `data-youtube-id=""` in the hero and put the video's YouTube ID between the quotes (for `https://www.youtube.com/watch?v=AbC123xYz` the ID is `AbC123xYz`). Until then the video area stays hidden. The video only loads when someone presses play.
+- **Logos**: each logo is one `<li>` line in the "Organizations we've trained" list. Add, remove or reorder lines there; the scrolling copy is made automatically.
+- **Testimonials**: words in [brackets] were changed from the original quote and "…" marks shortened text, so readers can tell.
+
+`home-page-elementor-compact.html` is the same page with the CSS minified, for when a hosting firewall rejects the larger save. Edit the readable file; regenerate the compact one from it.
